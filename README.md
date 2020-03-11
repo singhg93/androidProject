@@ -4,5 +4,5 @@ Group Project - Digital Product Marketplace
 
 #### The library for password hashing
 
-jBCrypt \\
+jBCrypt \
 http://www.mindrot.org/projects/jBCrypt/
