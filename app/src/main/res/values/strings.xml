@@ -1,3 +1,24 @@
 <resources>
     <string name="app_name">Digital Product Marketplace</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="titleRegistration">Create Account</string>
+    <string name="rej_Email">Email</string>
+    <string name="PhoneNumber">Phone Number</string>
+    <string name="rePwd">Re-enter Password</string>
+    <string name="fullName">Full name</string>
+
+    <string-array name="gender">
+        <list>Male</list>
+        <list>Female</list>
+        <list>Prefer no to say</list>
+    </string-array>
+    <string name="condions">Click here to read terms and conditions.</string>
+    <string name="acceptTerms">I read and agree with terms and conditons.</string>
 </resources>
