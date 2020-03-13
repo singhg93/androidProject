@@ -15,9 +15,9 @@
     <string name="fullName">Full name</string>
 
     <string-array name="gender">
-        <list>Male</list>
-        <list>Female</list>
-        <list>Prefer no to say</list>
+        <item>Male</item>
+        <item>Female</item>
+        <item>Prefer no to say</item>
     </string-array>
     <string name="condions">Click here to read terms and conditions.</string>
     <string name="acceptTerms">I read and agree with terms and conditons.</string>
