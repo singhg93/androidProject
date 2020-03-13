@@ -21,4 +21,5 @@
     </string-array>
     <string name="condions">Click here to read terms and conditions.</string>
     <string name="acceptTerms">I read and agree with terms and conditons.</string>
+    <string name="titleGenderSpinner">Gender</string>
 </resources>

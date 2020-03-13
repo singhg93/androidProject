@@ -2,9 +2,11 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/registrationLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bgaccount"
+    android:background="@android:color/background_light"
+    android:clickable="true"
     tools:context=".RegistrationActivity">
 
     <TextView
@@ -13,26 +15,28 @@
         android:layout_height="wrap_content"
         android:text="@string/titleRegistration"
         android:textAllCaps="true"
-        android:textColor="@android:color/darker_gray"
+        android:textColor="@color/colorPrimary"
         android:textSize="33sp"
         android:textStyle="bold"
+        android:typeface="sans"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.079"
+        app:layout_constraintHorizontal_bias="0.016"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.06" />
+        app:layout_constraintVertical_bias="0.053" />
 
     <EditText
         android:id="@+id/fullNameTxt"
         android:layout_width="290dp"
         android:layout_height="43dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="36dp"
         android:ems="10"
         android:hint="@string/fullName"
         android:inputType="textPersonName"
         android:textSize="19sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/titleRegistration" />
 
@@ -55,6 +59,7 @@
         android:layout_height="43dp"
         android:layout_marginTop="16dp"
         android:entries="@array/gender"
+        android:prompt="@string/titleGenderSpinner"
         android:spinnerMode="dialog"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -87,7 +92,7 @@
         app:layout_constraintTop_toBottomOf="@+id/passwordTxt" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/readTCtxtLink"
         android:layout_width="290dp"
         android:layout_height="39dp"
         android:layout_marginTop="16dp"
@@ -98,29 +103,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rePasswordTxt" />
 
-    <CheckedTextView
-        android:id="@+id/checkedTextView"
-        android:layout_width="290dp"
-        android:layout_height="53dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/acceptTerms"
-        android:textSize="19sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
-
     <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:id="@+id/createAccBtn"
+        android:layout_width="147dp"
+        android:layout_height="43dp"
+        android:background="@color/colorPrimary"
         android:text="@string/titleRegistration"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkedTextView"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/readTCtxtLink"
+        app:layout_constraintVertical_bias="0.119" />
 
     <EditText
         android:id="@+id/emailTxt"
