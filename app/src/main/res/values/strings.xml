@@ -21,4 +21,15 @@
     </string-array>
     <string name="condions">Click here to read terms and conditions.</string>
     <string name="acceptTerms">I read and agree with terms and conditons.</string>
+
+
+
+    <string name="titilelo" translatable="false">Login</string>
+    <string name="title">Login</string>
+    <string name="email">Email</string>
+    <string name="sgnin">Sign In</string>
 </resources>
+
+
+
+
