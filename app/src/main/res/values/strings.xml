@@ -27,6 +27,10 @@
     <string name="title">Login</string>
     <string name="email">Email</string>
     <string name="sgnin">Sign In</string>
+    <string name="Pname" >Name</string>
+    <string name="pPhonenumber">Phone Number</string>
+    <string name="pGender">Gender</string>
+    <string name="Birth">Birthday</string>
 </resources>
 
 
