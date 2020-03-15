@@ -1,6 +1,6 @@
-package src.com.marketplace.Entity;
+package com.example.digitalproductmarketplace.Entity;
 
-import src.org.mindrot.jbcrypt.BCrypt;
+import com.example.digitalproductmarketplace.org.mindrot.jbcrypt.BCrypt;
 
 /**
  *
