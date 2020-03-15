@@ -12,17 +12,22 @@ import com.example.digitalproductmarketplace.org.mindrot.jbcrypt.BCrypt;
 public class User {
 
     // user attributes
-    private String _username;
+    private long _id;
     private String _firstName;
     private String _lastName;
     private String _email;
     private String _password; // the password in stored in encrypted format
 
+
+    /**
+     * The default constructor for user entity
+     */
+    public User() {}
+
     /**
      *
      * The default constructor to create a user
      *
-     * @param username
      * @param firstName
      * @param lastName
      * @param email
@@ -30,7 +35,6 @@ public class User {
      */
     // default constructor
     public User(String username, String firstName, String lastName, String email, String password) {
-        _username = username;
         _firstName = firstName;
         _lastName = lastName;
         _email = email;
@@ -40,20 +44,28 @@ public class User {
 
     /**
      *
+     * @return the database id of the user
+     */
+    public long get_id() {
+        return _id;
+    }
+
+    /**
+     *
+     * @param _id the database id of the user
+     */
+    public void set_id(long _id) {
+        this._id = _id;
+    }
+
+    /**
+     *
      * @param passwordToCheck the password to check
      * @return true if the given password was correct, false otherwise
      */
     // check if the given password was correct
     public boolean checkAuthenticity(String passwordToCheck) {
         return BCrypt.checkpw(passwordToCheck, _password);
-    }
-
-    /**
-     *
-     * @return the username of the user
-     */
-    public String get_username() {
-        return _username;
     }
 
 
@@ -67,10 +79,24 @@ public class User {
 
     /**
      *
+     * @param firstName the firstName to set
+     */
+    public void set_firstName(String firstName) {
+        _firstName = firstName;
+    }
+
+    /**
+     *
      * @return the last name of the user
      */
     public String get_lastName() {
         return _lastName;
+    }
+
+
+    public void set_lastName( String lastName ){
+        _lastName = lastName;
+
     }
 
     /**
@@ -92,11 +118,16 @@ public class User {
 
     /**
      *
-     * @param newPassword the new password to store
+     * @param newPassword the hashed password retrieved from the database
      */
-    public void set_password(String newPassword) {
+    public void set_password(String hashedPassword) {
 
-        // hash the new password and store it
-        this._password = BCrypt.hashpw(newPassword, BCrypt.gensalt());
+        // only for retrieving the hashed password from the database
+        this._password = hashedPassword;
     }
+
+    public String get_hashedPassword() {
+        return _password;
+    }
+
 }
