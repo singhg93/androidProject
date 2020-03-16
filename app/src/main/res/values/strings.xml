@@ -19,7 +19,7 @@
         <item>Female</item>
         <item>Prefer no to say</item>
     </string-array>
-    <string name="condions">Click here to read terms and conditions.</string>
+    <string name="condions">Read Terms and Conditions.</string>
     <string name="acceptTerms">I read and agree with terms and conditons.</string>
 
     <string name="titleGenderSpinner">Gender</string>
@@ -27,6 +27,8 @@
     <string name="title">Login</string>
     <string name="email">Email</string>
     <string name="sgnin">Sign In</string>
+    <string name="dateOfBirth">Date of Birth - DD/MM/YYYY</string>
+    <string name="alreadyMember">Already a user? Login</string>
 </resources>
 
 
