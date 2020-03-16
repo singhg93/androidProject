@@ -27,7 +27,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/fullNameTxt_layout"
+        android:id="@+id/firstNameTxt_layout"
         android:layout_width="310dp"
         android:layout_height="49dp"
         android:layout_marginTop="10dp"
@@ -38,10 +38,30 @@
         app:layout_constraintTop_toBottomOf="@+id/titleRegistration">
 
         <EditText
-            android:id="@+id/fullNameTxt"
+            android:id="@+id/firstNameTxt"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="@string/first_name"
+            android:inputType="textPersonName"
+            android:textSize="15sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/lastNameTxt_layout"
+        android:layout_width="310dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="10dp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/firstNameTxt_layout">
+
+        <EditText
+            android:id="@+id/lastNameTxt"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/last_name"
             android:inputType="textPersonName"
             android:textSize="15sp" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -55,7 +75,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fullNameTxt_layout">
+        app:layout_constraintTop_toBottomOf="@+id/lastNameTxt_layout">
 
         <EditText
             android:id="@+id/emailTxt"
@@ -105,19 +125,6 @@
             android:inputType="textPassword"
             android:textSize="15sp" />
     </com.google.android.material.textfield.TextInputLayout>
-
-    <TextView
-        android:id="@+id/readTCtxtLink"
-        android:layout_width="225dp"
-        android:layout_height="23dp"
-        android:layout_marginTop="44dp"
-        android:text="@string/condions"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.086"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/alreadyUserTxt" />
 
     <Button
         android:id="@+id/createAccBtn"

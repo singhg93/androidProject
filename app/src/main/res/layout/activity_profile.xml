@@ -26,7 +26,7 @@
         android:drawableLeft="@drawable/ic_person_black_24dp"
         android:drawablePadding="@android:dimen/app_icon_size"
         android:ems="10"
-        android:hint="@string/Pname"
+        android:hint="@string/fullName"
         android:inputType="textPersonName"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -36,35 +36,6 @@
         app:layout_constraintTop_toBottomOf="@+id/profileImage"
         app:layout_constraintVertical_bias="0.060000002" />
 
-    <EditText
-        android:id="@+id/editTextPhone"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:drawableLeft="@drawable/ic_phone_in_talk_black_24dp"
-        android:drawablePadding="@android:dimen/app_icon_size"
-        android:ems="10"
-        android:hint="@string/pPhonenumber"
-        android:inputType="textPersonName"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextName" />
-
-    <EditText
-        android:id="@+id/editTextgender"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:drawableLeft="@drawable/ic_wc_black_24dp"
-        android:drawablePadding="@android:dimen/app_icon_size"
-        android:ems="10"
-        android:hint="@string/pGender"
-        android:inputType="textPersonName"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextPhone" />
 
     <EditText
         android:id="@+id/editTextEmail"
@@ -74,27 +45,13 @@
         android:drawableLeft="@drawable/ic_email_black_24dp"
         android:drawablePadding="@android:dimen/app_icon_size"
         android:ems="10"
-        android:hint="@string/email"
+        android:hint="@string/prompt_email"
         android:inputType="textPersonName"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextgender" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextName" />
 
-    <EditText
-        android:id="@+id/editTextBirth"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:drawableLeft="@drawable/ic_cake_black_24dp"
-        android:drawablePadding="@android:dimen/app_icon_size"
-        android:ems="10"
-        android:hint="@string/Birth"
-        android:inputType="textPersonName"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextEmail" />
 
     <EditText
         android:id="@+id/editTextPassword"
@@ -109,5 +66,5 @@
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextBirth" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextEmail" />
 </androidx.constraintlayout.widget.ConstraintLayout>

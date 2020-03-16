@@ -14,7 +14,8 @@ import com.google.android.material.textfield.TextInputEditText;
 
 public class RegistrationActivity extends AppCompatActivity {
 
-    EditText fullName;
+    EditText firstName;
+    EditText lastName;
     EditText emailTxt;
     EditText passwordTxt;
     EditText rePasswordTxt;
@@ -25,7 +26,8 @@ public class RegistrationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
 
-        fullName = findViewById(R.id.fullNameTxt);
+        firstName = findViewById(R.id.firstNameTxt);
+        lastName = findViewById(R.id.lastNameTxt);
         emailTxt = findViewById(R.id.emailTxt);
         passwordTxt = findViewById(R.id.passwordTxt);
         rePasswordTxt = findViewById(R.id.rePasswordTxt);
@@ -42,13 +44,13 @@ public class RegistrationActivity extends AppCompatActivity {
     private void scanData(){
 
         //Comparing of string is empaty
-        if((fullName.getText().toString().equals("")) || (emailTxt.getText().toString().equals(""))
+        if((firstName.getText().toString().equals("")) || (emailTxt.getText().toString().equals(""))
             || (passwordTxt.getText().toString().equals("")) || (rePasswordTxt.getText().toString().equals(""))){
             Toast.makeText(RegistrationActivity.this, "Please enter the data", Toast.LENGTH_SHORT).show();
         }
         else{
             Toast.makeText(RegistrationActivity.this,
-                    "Full Name :"+ fullName.getText()
+                    "Full Name :"+ firstName.getText() + " " + lastName.getText()
                             +"\nEmail :" +emailTxt.getText()
                             +"\nPassword :" +passwordTxt.getText()
                             +"\nRe-Pass :" +rePasswordTxt.getText()

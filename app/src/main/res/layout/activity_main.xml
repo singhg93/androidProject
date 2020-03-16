@@ -10,7 +10,7 @@
         android:id="@+id/Title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/title"
+        android:text="@string/titleLogin"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -53,12 +53,13 @@
         android:id="@+id/signInbutton"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/round_button"
+        android:layout_marginTop="44dp"
 
-        android:text="@string/sgnin"
+        android:background="@drawable/round_button"
+        android:text="@string/action_sign_in"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/facebookImage" />
 
@@ -98,5 +99,16 @@
         app:layout_constraintStart_toEndOf="@+id/facebookImage"
         app:layout_constraintTop_toBottomOf="@+id/passwordText"
         app:srcCompat="@mipmap/ic_launcher_round"  />
+
+    <TextView
+        android:id="@+id/signUpTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/signUp"
+        android:textSize="19sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/signInbutton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
