@@ -42,10 +42,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="123">
               <caret line="47" column="76" selection-start-line="47" selection-start-column="76" selection-end-line="47" selection-end-column="76" />
-              <folding>
-                <element signature="e#1212#1356#0" expanded="true" />
-                <element signature="e#1355#1356#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -370,10 +366,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="123">
           <caret line="47" column="76" selection-start-line="47" selection-start-column="76" selection-end-line="47" selection-end-column="76" />
-          <folding>
-            <element signature="e#1212#1356#0" expanded="true" />
-            <element signature="e#1355#1356#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>

@@ -24,7 +24,6 @@ public class RegistrationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
-        ConstraintLayout registrationLayout = findViewById(R.id.registrationLayout);
 
         fullName = findViewById(R.id.fullNameTxt);
         emailTxt = findViewById(R.id.emailTxt);

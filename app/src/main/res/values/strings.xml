@@ -27,8 +27,15 @@
     <string name="title">Login</string>
     <string name="email">Email</string>
     <string name="sgnin">Sign In</string>
+<<<<<<< HEAD
     <string name="dateOfBirth">Date of Birth - DD/MM/YYYY</string>
     <string name="alreadyMember">Already a user? Login</string>
+=======
+    <string name="Pname" >Name</string>
+    <string name="pPhonenumber">Phone Number</string>
+    <string name="pGender">Gender</string>
+    <string name="Birth">Birthday</string>
+>>>>>>> cad30ac35d1b7a021e0b9dd56482268b7fbc0c89
 </resources>
 
 

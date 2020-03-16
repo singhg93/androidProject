@@ -9,8 +9,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+<<<<<<< HEAD
         <activity android:name=".LoginActivity"></activity>
         <activity android:name=".RegistrationActivity">
+=======
+        <activity android:name=".profileActivity">
+
+        </activity>
+        <activity android:name=".RegistrationActivity" />
+        <activity android:name=".MainActivity">
+>>>>>>> cad30ac35d1b7a021e0b9dd56482268b7fbc0c89
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
