@@ -10,13 +10,19 @@ import com.example.digitalproductmarketplace.Entity.User;
 
 import java.util.ArrayList;
 
+/**
+ *
+ */
 public class UserDAO implements UserDAOInterface {
-
 
     private final String LOG_TAG = "USER DAO";
     private DBHelper _dbHelper;
     private SQLiteDatabase _db;
 
+    /**
+     * The default constructor
+     * @param context
+     */
     public UserDAO (Context context) {
         _dbHelper = new DBHelper(context);
     }
@@ -54,6 +60,10 @@ public class UserDAO implements UserDAOInterface {
     public User getUser(String userEmail) {
 
         try {
+
+            // get the database
+            _db = _dbHelper.getReadableDatabase();
+
             // list all the columns that should be returned from the database
             String[] projection = {
                     DBHelper._ID,
@@ -81,18 +91,23 @@ public class UserDAO implements UserDAOInterface {
             // instantiate a new user
             User requestedUser = new User();
 
+
+            // if the cursor has a next row, move to the first one and get all the required infor
             if (cursor.moveToNext()) {
-                cursor.moveToFirst();
                 long userId = cursor.getLong(cursor.getColumnIndexOrThrow(DBHelper._ID));
                 String firstName = cursor.getString(cursor.getColumnIndexOrThrow(DBHelper.FIRST_NAME_COLUMN));
                 String lastName = cursor.getString(cursor.getColumnIndexOrThrow(DBHelper.LAST_NAME_COLUMN));
                 String email = cursor.getString(cursor.getColumnIndexOrThrow(DBHelper.EMAIL_COLUMN));
                 String password = cursor.getString(cursor.getColumnIndexOrThrow(DBHelper.PASSWORD_COLUMN));
+
+                // create a user object from the database values
                 requestedUser.set_id(userId);
                 requestedUser.set_firstName(firstName);
                 requestedUser.set_lastName(lastName);
                 requestedUser.set_email(email);
-                requestedUser.set_password(password);
+                requestedUser.set_hashedPassword(password);
+
+                // if there are no rows in the curson, return null
             } else {
                 requestedUser = null;
             }
@@ -108,8 +123,12 @@ public class UserDAO implements UserDAOInterface {
 
     @Override
     public ArrayList<User> getAllUsers() {
+
+
         ArrayList<User> allUsers = new ArrayList<>();
         try {
+            _db = _dbHelper.getReadableDatabase();
+
             // list all the columns that should be returned from the database
             String[] projection = {
                     DBHelper._ID,
@@ -145,7 +164,7 @@ public class UserDAO implements UserDAOInterface {
                 requestedUser.set_firstName(firstName);
                 requestedUser.set_lastName(lastName);
                 requestedUser.set_email(email);
-                requestedUser.set_password(password);
+                requestedUser.set_hashedPassword(password);
                 allUsers.add(requestedUser);
             }
 
@@ -161,6 +180,7 @@ public class UserDAO implements UserDAOInterface {
     @Override
     public int updateUser(User updatedUser) {
         try {
+            // get the database
             _db = _dbHelper.getWritableDatabase();
 
             // create a ContentValues with the updated values
@@ -189,6 +209,9 @@ public class UserDAO implements UserDAOInterface {
     @Override
     public int deleteUser(User userToBeDeleted) {
         try {
+            // get the database
+            _db = _dbHelper.getWritableDatabase();
+
             // Define 'where' part of query.
             String selection = DBHelper.EMAIL_COLUMN + " = ?";
 

@@ -24,22 +24,7 @@ public class User {
      */
     public User() {}
 
-    /**
-     *
-     * The default constructor to create a user
-     *
-     * @param firstName
-     * @param lastName
-     * @param email
-     * @param password
-     */
-    // default constructor
-    public User(String username, String firstName, String lastName, String email, String password) {
-        _firstName = firstName;
-        _lastName = lastName;
-        _email = email;
-        _password = BCrypt.hashpw(password, BCrypt.gensalt());
-    }
+
 
 
     /**
@@ -118,16 +103,30 @@ public class User {
 
     /**
      *
-     * @param newPassword the hashed password retrieved from the database
+     * @param hashedPassword the hashed password retrieved from the database
      */
-    public void set_password(String hashedPassword) {
+    public void set_hashedPassword(String hashedPassword) {
 
         // only for retrieving the hashed password from the database
         this._password = hashedPassword;
     }
 
+    /**
+     *
+     * @return the hash of the password
+     */
     public String get_hashedPassword() {
         return _password;
     }
+
+    /**
+     *
+     * @param newPassword the new password to set
+     */
+    public void set_password( String newPassword) {
+        _password = BCrypt.hashpw(newPassword, BCrypt.gensalt());
+    }
+
+
 
 }

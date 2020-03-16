@@ -14,7 +14,7 @@
     <string name="titleLogin">Login</string>
     <string name="dateOfBirth">Date of Birth - DD/MM/YYYY</string>
     <string name="alreadyMember">Already a user? Login</string>
-    <string name="first_name" >First Name</string>
+    <string name="first_name">First Name</string>
     <string name="last_name">Last Name</string>
     <string name="signUp">Sign Up</string>
 </resources>
