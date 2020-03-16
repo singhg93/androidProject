@@ -5,37 +5,17 @@
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="welcome">"Welcome !"</string>
-    <string name="invalid_username">Not a valid username</string>
-    <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="titleRegistration">Create Account</string>
-    <string name="rej_Email">Email</string>
-    <string name="PhoneNumber">Phone Number</string>
     <string name="rePwd">Re-enter Password</string>
     <string name="fullName">Full name</string>
-
-    <string-array name="gender">
-        <item>Male</item>
-        <item>Female</item>
-        <item>Prefer no to say</item>
-    </string-array>
-    <string name="condions">Read Terms and Conditions.</string>
-    <string name="acceptTerms">I read and agree with terms and conditons.</string>
-
-    <string name="titleGenderSpinner">Gender</string>
-    <string name="titilelo" translatable="false">Login</string>
-    <string name="title">Login</string>
-    <string name="email">Email</string>
-    <string name="sgnin">Sign In</string>
-<<<<<<< HEAD
+    <string name="conditions">Read Terms and Conditions.</string>
+    <string name="acceptTerms">I read and agree with terms and conditions.</string>
+    <string name="titleLogin">Login</string>
     <string name="dateOfBirth">Date of Birth - DD/MM/YYYY</string>
     <string name="alreadyMember">Already a user? Login</string>
-=======
-    <string name="Pname" >Name</string>
-    <string name="pPhonenumber">Phone Number</string>
-    <string name="pGender">Gender</string>
-    <string name="Birth">Birthday</string>
->>>>>>> cad30ac35d1b7a021e0b9dd56482268b7fbc0c89
+    <string name="first_name" >First Name</string>
+    <string name="last_name">Last Name</string>
 </resources>
 
 
