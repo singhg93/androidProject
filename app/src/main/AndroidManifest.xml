@@ -20,10 +20,6 @@
 
         </activity>
         <activity android:name=".profileActivity" />
-        <activity android:name=".RegistrationActivity">
-        </activity>
-<!--        <activity android:name=".LoginActivity">-->
-<!--        </activity>-->
     </application>
 
 </manifest>
