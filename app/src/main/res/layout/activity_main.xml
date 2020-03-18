@@ -19,41 +19,61 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView"
         app:layout_constraintVertical_bias="0.07999998" />
 
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/userName_layout"
+        android:layout_width="310dp"
+        android:layout_height="50dp"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Title"
+        app:layout_constraintVertical_bias="0.110000014">
+
+
+
     <EditText
         android:id="@+id/emailText"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:drawableLeft="@drawable/ic_person_add_black_24dp"
         android:ems="10"
         android:hint="    Username"
         android:inputType="textPersonName"
+ />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/emailTxt_layout"
+        android:layout_width="310dp"
+        android:layout_height="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Title"
-        app:layout_constraintVertical_bias="0.110000014" />
+        app:layout_constraintTop_toBottomOf="@+id/userName_layout"
+        app:layout_constraintVertical_bias="0.100000024" >
 
     <EditText
         android:id="@+id/passwordText"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:drawableLeft="@android:drawable/ic_secure"
         android:ems="10"
         android:hint="     Password"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/emailText"
-        app:layout_constraintVertical_bias="0.100000024" />
+        android:inputType="textPersonName" />
+
+</com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/signInbutton"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="32dp"
 
         android:background="@drawable/round_button"
         android:text="@string/action_sign_in"
@@ -80,13 +100,13 @@
         android:id="@+id/facebookImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="30dp"
         android:backgroundTint="@android:color/background_light"
         android:foreground="@drawable/facebook"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.36"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordText"
+        app:layout_constraintTop_toBottomOf="@+id/emailTxt_layout"
         app:srcCompat="@mipmap/ic_launcher_round" />
 
     <ImageView
@@ -94,11 +114,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="32dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="30dp"
         android:foreground="@drawable/grr"
         app:layout_constraintStart_toEndOf="@+id/facebookImage"
-        app:layout_constraintTop_toBottomOf="@+id/passwordText"
-        app:srcCompat="@mipmap/ic_launcher_round"  />
+        app:layout_constraintTop_toBottomOf="@+id/emailTxt_layout"
+        app:srcCompat="@mipmap/ic_launcher_round" />
 
     <TextView
         android:id="@+id/signUpTxt"
@@ -109,6 +129,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signInbutton" />
+        app:layout_constraintTop_toBottomOf="@+id/signInbutton"
+        app:layout_constraintVertical_bias="0.41000003" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

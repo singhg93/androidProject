@@ -1,6 +1,7 @@
 package com.example.digitalproductmarketplace;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -18,11 +19,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ImageView faceimg = findViewById(R.id.facebookImage);
         ImageView googimg = findViewById(R.id.googleImage);
-        TextView signUpTxt = findViewById(R.id.signUpTxt);
+        final TextView signUpTxt = findViewById(R.id.signUpTxt);
         signUpTxt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, RegistrationActivity.class));
+            signUpTxt.setTextColor(Color.BLUE);
             }
         });
 

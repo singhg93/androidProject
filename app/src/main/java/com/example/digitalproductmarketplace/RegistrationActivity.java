@@ -1,11 +1,13 @@
 package com.example.digitalproductmarketplace;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,10 +31,13 @@ public class RegistrationActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
 
         // get all the fields from their ids
+        final TextView backtologin=findViewById(R.id.alreadyUserTxt);
         _firstName = findViewById(R.id.firstNameTxt);
         _lastName = findViewById(R.id.lastNameTxt);
         _emailTxt = findViewById(R.id.emailTxt);
@@ -40,6 +45,13 @@ public class RegistrationActivity extends AppCompatActivity {
         _rePasswordTxt = findViewById(R.id.rePasswordTxt);
         _createAccBtn = findViewById(R.id.createAccBtn);
 
+        backtologin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(RegistrationActivity.this, MainActivity.class));
+                backtologin.setTextColor(Color.BLUE);
+            }
+        });
         // when the sign up button is clicked do the following
         _createAccBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,7 +59,7 @@ public class RegistrationActivity extends AppCompatActivity {
                 // validate the data in the fields
                 if (validateData()) {
                     if (createUser()) {
-                        startActivity(new Intent(RegistrationActivity.this, LoginActivity.class));
+                        startActivity(new Intent(RegistrationActivity.this, MainActivity.class));
                         finish();
                     }
                 }
