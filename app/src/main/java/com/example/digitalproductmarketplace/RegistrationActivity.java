@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.digitalproductmarketplace.Boundary.UserDAO;
 import com.example.digitalproductmarketplace.Entity.User;
 
+
 import java.util.regex.Pattern;
 
 public class RegistrationActivity extends AppCompatActivity {
@@ -36,20 +37,21 @@ public class RegistrationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
 
+
         // get all the fields from their ids
         final TextView backtologin=findViewById(R.id.alreadyUserTxt);
         _firstName = findViewById(R.id.firstNameTxt);
         _lastName = findViewById(R.id.lastNameTxt);
-        _emailTxt = findViewById(R.id.emailTxt);
-        _passwordTxt = findViewById(R.id.passwordTxt);
+        _emailTxt = findViewById(R.id.login_email);
+        _passwordTxt = findViewById(R.id.login_password);
         _rePasswordTxt = findViewById(R.id.rePasswordTxt);
         _createAccBtn = findViewById(R.id.createAccBtn);
 
         backtologin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(RegistrationActivity.this, MainActivity.class));
-                backtologin.setTextColor(Color.BLUE);
+                startActivity(new Intent(RegistrationActivity.this, LoginActivity.class));
+                finish();
             }
         });
         // when the sign up button is clicked do the following
@@ -59,14 +61,14 @@ public class RegistrationActivity extends AppCompatActivity {
                 // validate the data in the fields
                 if (validateData()) {
                     if (createUser()) {
-                        startActivity(new Intent(RegistrationActivity.this, MainActivity.class));
+                        startActivity(new Intent(RegistrationActivity.this, LoginActivity.class));
                         finish();
                     }
                 }
             }
         });
-    }
 
+    }
 
     private boolean validateData(){
 
@@ -144,8 +146,6 @@ public class RegistrationActivity extends AppCompatActivity {
         }
     }
 
-
-
     private void showToast(String message) {
         // if there is already a toast being displayed, remove it
         if ( _registrationToast != null) {
@@ -187,6 +187,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
         return rowId > 0;
     }
+
 
 
 }

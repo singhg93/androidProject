@@ -19,7 +19,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".profileActivity" />
+        <activity android:name=".ProfileActivity" />
     </application>
 
 </manifest>

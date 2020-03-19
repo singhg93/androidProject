@@ -100,8 +100,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/example/digitalproductmarketplace/Entity/advertisementPost.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="438">
-              <caret line="73" column="31" selection-start-line="73" selection-start-column="31" selection-end-line="73" selection-end-column="31" />
+            <state relative-caret-position="1095">
+              <caret line="73" column="23" selection-start-line="73" selection-start-column="23" selection-end-line="73" selection-end-column="23" />
               <folding>
                 <element signature="e#552#553#0" expanded="true" />
                 <element signature="e#587#588#0" expanded="true" />
@@ -348,24 +348,23 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1280" height="715" extended-state="6" />
-    <editor active="true" />
+    <frame x="0" y="23" width="1280" height="713" extended-state="6" />
     <layout>
       <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
-      <window_info content_ui="combo" id="Project" order="1" sideWeight="0.49919742" visible="true" weight="0.31987077" />
+      <window_info content_ui="combo" id="Project" order="1" sideWeight="0.7976879" visible="true" weight="0.31987077" />
       <window_info id="Structure" order="2" side_tool="true" />
       <window_info id="Build Variants" order="3" side_tool="true" />
       <window_info id="Image Layers" order="4" />
       <window_info id="Designer" order="5" />
       <window_info id="Resources Explorer" order="6" />
       <window_info id="Capture Tool" order="7" />
-      <window_info active="true" id="Favorites" order="8" sideWeight="0.5008026" side_tool="true" visible="true" weight="0.31987077" />
+      <window_info id="Favorites" order="8" sideWeight="0.20231214" side_tool="true" visible="true" weight="0.31987077" />
       <window_info anchor="bottom" id="Run" order="0" />
       <window_info anchor="bottom" id="Logcat" order="1" weight="0.33386838" />
       <window_info anchor="bottom" id="TODO" order="2" />
-      <window_info anchor="bottom" id="Android Profiler" order="3" show_stripe_button="false" weight="0.3289689" />
+      <window_info anchor="bottom" id="Android Profiler" order="3" weight="0.3289689" />
       <window_info anchor="bottom" id="Debug" order="4" />
-      <window_info anchor="bottom" id="Terminal" order="5" weight="0.10914928" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="5" visible="true" weight="0.44283414" />
       <window_info anchor="bottom" id="Event Log" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.32905295" />
       <window_info anchor="bottom" id="Build" order="8" weight="0.28892455" />
@@ -553,8 +552,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/example/digitalproductmarketplace/Entity/advertisementPost.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="438">
-          <caret line="73" column="31" selection-start-line="73" selection-start-column="31" selection-end-line="73" selection-end-column="31" />
+        <state relative-caret-position="1095">
+          <caret line="73" column="23" selection-start-line="73" selection-start-column="23" selection-end-line="73" selection-end-column="23" />
           <folding>
             <element signature="e#552#553#0" expanded="true" />
             <element signature="e#587#588#0" expanded="true" />
