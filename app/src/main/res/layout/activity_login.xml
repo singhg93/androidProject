@@ -17,10 +17,18 @@
 
 
         <TextView
-            android:id="@+id/titleLogin"
+            android:id="@+id/invalid_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+
+        <TextView
+            android:id="@+id/titleLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="@string/titleLogin"
             android:textAllCaps="false"
             android:textColor="@color/design_default_color_on_secondary"
@@ -29,8 +37,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toBottomOf="@+id/invalid_login"
+            app:layout_constraintVertical_bias="0.060000002" />
 
 
         <com.google.android.material.textfield.TextInputLayout
@@ -45,7 +53,7 @@
             app:layout_constraintTop_toBottomOf="@+id/titleLogin">
 
             <EditText
-                android:id="@+id/emailTxt"
+                android:id="@+id/login_email"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="@string/prompt_email"
@@ -65,7 +73,7 @@
             app:layout_constraintTop_toBottomOf="@+id/loginEmail">
 
             <EditText
-                android:id="@+id/passwordTxt"
+                android:id="@+id/login_password"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="@string/prompt_password"
@@ -107,6 +115,16 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/logo" />
+
+        <com.google.android.gms.common.SignInButton
+            android:id="@+id/google_sign_in"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/alreadyUserTxt" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -16,7 +16,7 @@
     <string name="alreadyMember">Already a user? Login</string>
     <string name="first_name">First Name</string>
     <string name="last_name">Last Name</string>
-    <string name="signUp">Don't have an account yet? Sign Up</string>
+    <string name="signUp">Don\'t have an account yet? Sign Up</string>
     <string name="account">Account Info</string>
     <string name="profiletext">Profile</string>
 </resources>
