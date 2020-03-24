@@ -3,8 +3,10 @@ package com.example.digitalproductmarketplace;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
@@ -33,7 +35,7 @@ public class LoginActivity extends AppCompatActivity {
     GoogleSignInClient _myGoogleSignInClient;
     GoogleSignInAccount _googleAccount;
     User _signedInUser;
-    UserDAO _userDAO;
+    UserDAO _userDAO = new UserDAO(LoginActivity.this);
     final int RC_SIGN_IN = 1599;
     final String SIGN_IN_TAG = "Sign in error";
 
@@ -44,13 +46,26 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+
         _loginEmail = findViewById(R.id.login_email);
         _loginPassword = findViewById(R.id.login_password);
         _loginButton = findViewById(R.id.login_button);
         _invalidLogin = findViewById(R.id.invalid_login);
         _signedInUser = new User();
-        _userDAO = new UserDAO(getApplicationContext());
         _googleSignInButton = findViewById(R.id.google_sign_in);
+
+        SharedPreferences sharedPref
+                = PreferenceManager.getDefaultSharedPreferences(this);
+        if (sharedPref.contains("EMAIL")){
+            String userEmail = sharedPref.getString("EMAIL","");
+            _signedInUser = _userDAO.getUser(userEmail);
+
+            if (_signedInUser != null ) {
+                Log.e("userEmail", _signedInUser.get_email());
+                signIn(_signedInUser);
+            }
+
+        }
 
         // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
@@ -93,6 +108,19 @@ public class LoginActivity extends AppCompatActivity {
         // start the profile activity
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
+        if (requestCode == RC_SIGN_IN) {
+            // The Task returned from this call is always completed, no need to attach
+            // a listener.
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            handleGoogleSignIn(task);
+        }
+    }
+
     private boolean validateLoginCredentials() {
         String email = _loginEmail.getText().toString();
         if (email.equals("") || !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
@@ -127,25 +155,26 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
-        if (requestCode == RC_SIGN_IN) {
-            // The Task returned from this call is always completed, no need to attach
-            // a listener.
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            handleGoogleSignIn(task);
-        }
-    }
-
     private void handleGoogleSignIn(Task<GoogleSignInAccount> completedTask) {
         try {
             _googleAccount = completedTask.getResult(ApiException.class);
-            _signedInUser.set_firstName(_googleAccount.getGivenName());
-            _signedInUser.set_lastName(_googleAccount.getFamilyName());
-            _signedInUser.set_email(_googleAccount.getEmail());
+
+            // check if a user has signed in previously with this account
+            User alreadyUser = _userDAO.getUser(_googleAccount.getEmail());
+
+            // if the user has not previously signed in using this account before,
+            // add the user to the database
+            if (alreadyUser == null) {
+                _signedInUser = new User();
+                _signedInUser.set_firstName(_googleAccount.getGivenName());
+                _signedInUser.set_lastName(_googleAccount.getFamilyName());
+                _signedInUser.set_email(_googleAccount.getEmail());
+                _userDAO.insertUser(_signedInUser);
+            } else {
+                _signedInUser = alreadyUser;
+            }
+
+            // sign the user in
             signIn(_signedInUser);
         } catch (ApiException ex) {
             Log.w(SIGN_IN_TAG, ex.getMessage());
@@ -154,6 +183,12 @@ public class LoginActivity extends AppCompatActivity {
 
 
     private void signIn(User signedInUser) {
+        SharedPreferences sharedPref
+                = PreferenceManager.getDefaultSharedPreferences
+                (LoginActivity.this);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString("EMAIL", signedInUser.get_email());
+        editor.commit(); //if not there, shared pref will not work!!
         Intent profileIntent = new Intent(LoginActivity.this, ProfileActivity.class);
         startActivity(profileIntent);
         finish();
