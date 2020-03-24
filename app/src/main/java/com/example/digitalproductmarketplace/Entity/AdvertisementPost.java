@@ -4,43 +4,26 @@ import java.util.Date;
 
 /*
 
- This class stores the information about a advertisementPost.
-this class stores the description of item,name of item,
+ This class stores the information about a AdvertisementPost.
+this class stores the description of Item,name of Item,
 date on which advertisement was posted,
 the date on which changes made on advertisement
  */
-public class advertisementPost extends User {
+public class AdvertisementPost {
 
-    //atrributes of advertisementPost
-    private String _description;
-    private String _item;
+    //atrributes of AdvertisementPost
+    private Item _item;
     private Date _datePosted;
     private Date _lastUpdated;
 
     //default constructor
-    public advertisementPost() {
+    public AdvertisementPost() {
     }
 
     /**
-     * @param @returns description of the item
+     * @param @return name of the Item
      */
-    public String get_description() {
-        return _description;
-    }
-
-
-    /**
-     * @param @description of the item
-     */
-    public void set_description(String _description) {
-        this._description = _description;
-
-    }
-
-    /**
-     * @param @return name of the item
-     */
-    public String get_item() {
+    public Item get_item() {
         return _item;
 
     }
@@ -48,7 +31,7 @@ public class advertisementPost extends User {
     /**
      * @param _item of the posted advertisement
      */
-    public void set_item(String _item) {
+    public void set_item(Item _item) {
         this._item = _item;
     }
 
