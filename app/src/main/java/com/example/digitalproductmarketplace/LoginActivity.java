@@ -27,6 +27,7 @@ import com.google.android.gms.tasks.Task;
 public class LoginActivity extends AppCompatActivity {
 
     EditText _loginEmail;
+    TextView _signUpTxt;
     EditText _loginPassword;
     Button _loginButton;
     SignInButton _googleSignInButton;
@@ -66,6 +67,16 @@ public class LoginActivity extends AppCompatActivity {
             }
 
         }
+
+        //if user want to create new account
+        //click on sign up text to go to Registration activity
+        _signUpTxt = findViewById(R.id.signUpTxt);
+        _signUpTxt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LoginActivity.this, RegistrationActivity.class));
+            }
+        });
 
         // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
@@ -125,9 +136,11 @@ public class LoginActivity extends AppCompatActivity {
         String email = _loginEmail.getText().toString();
         if (email.equals("") || !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             _loginEmail.setError("Please enter a valid email!");
+            _loginEmail.requestFocus();
             return false;
         } else if (_loginPassword.getText().toString().equals("")) {
             _loginPassword.setError("Please enter a password!");
+            _loginPassword.requestFocus();
             return false;
         } else {
             return true;
