@@ -10,6 +10,7 @@ public class Item {
     private String _description;
     private double _price;
     private String _catagory;
+    private User _user;
 
     //default constructor
     public Item() {
@@ -55,5 +56,21 @@ public class Item {
      */
     public void set_catagory(String _catagory) {
         this._catagory = _catagory;
+    }
+
+    /**
+     *
+     * @param user
+     */
+    public void set_user( User user ) {
+        _user = user;
+    }
+
+    /**
+     * 
+     * @return
+     */
+    public User get_user() {
+        return _user;
     }
 }
