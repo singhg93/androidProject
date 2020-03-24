@@ -72,7 +72,7 @@
         android:drawableLeft="@android:drawable/ic_secure"
         android:ems="10"
         android:hint="     Password"
-        android:inputType="textPersonName" />
+        android:inputType="textPassword" />
 
 </com.google.android.material.textfield.TextInputLayout>
 
