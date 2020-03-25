@@ -67,7 +67,7 @@ public class Item {
     }
 
     /**
-     * 
+     *
      * @return
      */
     public User get_user() {

@@ -35,6 +35,7 @@ public class LoginActivity extends AppCompatActivity {
     GoogleSignInClient _myGoogleSignInClient;
     GoogleSignInAccount _googleAccount;
     User _signedInUser;
+    TextView _backToRegistration;
     UserDAO _userDAO = new UserDAO(LoginActivity.this);
     final int RC_SIGN_IN = 1599;
     final String SIGN_IN_TAG = "Sign in error";
@@ -53,6 +54,7 @@ public class LoginActivity extends AppCompatActivity {
         _invalidLogin = findViewById(R.id.invalid_login);
         _signedInUser = new User();
         _googleSignInButton = findViewById(R.id.google_sign_in);
+        _backToRegistration = findViewById(R.id.no_account);
 
         SharedPreferences sharedPref
                 = PreferenceManager.getDefaultSharedPreferences(this);
@@ -66,6 +68,15 @@ public class LoginActivity extends AppCompatActivity {
             }
 
         }
+
+        // if no account is clicked
+        _backToRegistration.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent registrationIntent = new Intent(LoginActivity.this, RegistrationActivity.class);
+                startActivity(registrationIntent);
+            }
+        });
 
         // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.

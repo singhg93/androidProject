@@ -1,7 +1,6 @@
 package com.example.digitalproductmarketplace;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
@@ -27,6 +26,7 @@ public class RegistrationActivity extends AppCompatActivity {
     EditText _passwordTxt;
     EditText _rePasswordTxt;
     Button _createAccBtn;
+    TextView _backtologin;
 
 
 
@@ -39,7 +39,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
 
         // get all the fields from their ids
-        final TextView backtologin=findViewById(R.id.alreadyUserTxt);
+        _backtologin = findViewById(R.id.no_account);
         _firstName = findViewById(R.id.firstNameTxt);
         _lastName = findViewById(R.id.lastNameTxt);
         _emailTxt = findViewById(R.id.login_email);
@@ -47,11 +47,10 @@ public class RegistrationActivity extends AppCompatActivity {
         _rePasswordTxt = findViewById(R.id.rePasswordTxt);
         _createAccBtn = findViewById(R.id.createAccBtn);
 
-        backtologin.setOnClickListener(new View.OnClickListener() {
+        _backtologin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(RegistrationActivity.this, LoginActivity.class));
-                finish();
             }
         });
         // when the sign up button is clicked do the following
