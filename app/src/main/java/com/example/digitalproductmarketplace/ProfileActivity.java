@@ -7,13 +7,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.digitalproductmarketplace.Boundary.UserDAO;
 import com.example.digitalproductmarketplace.Entity.User;
@@ -31,8 +27,9 @@ public class ProfileActivity extends AppCompatActivity {
     TextView _lastName;
     TextView _email;
     Button _logOut;
-    SharedPreferences sharedPref;
+    SharedPreferences _sharedPref;
     GoogleSignInClient _myGoogleSignOutClient;
+    GoogleSignInOptions _gso;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,38 +43,40 @@ public class ProfileActivity extends AppCompatActivity {
         _logOut = findViewById(R.id.logOutBtn);
 
         /**
-         * This class i don't know about may be work wirhtout it too!!
+         * This class i don't know about may be work without it too!!
          */
-        GoogleSignInOptions _gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+        _gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
         _myGoogleSignOutClient = GoogleSignIn.getClient(this, _gso);
 
 
-        sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        _sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
 
         //log out button clear the sharedPreferences and
         //make the user take out to login activity
         _logOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences.Editor editor = sharedPref.edit();
+                SharedPreferences.Editor editor = _sharedPref.edit();
                 editor.clear();
                 editor.commit();
                 signOut();
             }
         });
 
-        if (sharedPref.contains("EMAIL")) {
-            String userEmail = sharedPref.getString("EMAIL", "");
+        if (_sharedPref.contains("EMAIL")) {
+            String userEmail = _sharedPref.getString("EMAIL", "");
             _signedInUser = _userDAO.getUser(userEmail);
         } else {
+
             Intent loginIntent = new Intent(ProfileActivity.this, LoginActivity.class);
             startActivity(loginIntent);
             finish();
         }
 
         if (_signedInUser == null ) {
+//            Log.e("Show Login", "user is null");
             Intent loginIntent = new Intent(ProfileActivity.this, LoginActivity.class);
             startActivity(loginIntent);
             finish();

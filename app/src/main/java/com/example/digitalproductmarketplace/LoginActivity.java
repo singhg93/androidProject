@@ -179,6 +179,7 @@ public class LoginActivity extends AppCompatActivity {
                 _signedInUser.set_firstName(_googleAccount.getGivenName());
                 _signedInUser.set_lastName(_googleAccount.getFamilyName());
                 _signedInUser.set_email(_googleAccount.getEmail());
+                _signedInUser.set_hashedPassword("RandomPassword123@");
                 _userDAO.insertUser(_signedInUser);
             } else {
                 _signedInUser = alreadyUser;
