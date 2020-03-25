@@ -19,6 +19,7 @@
     <string name="signUp">Don\'t have an account yet? Sign Up</string>
     <string name="account">Account Info</string>
     <string name="profiletext">Profile</string>
+    <string name="logOut">Log out</string>
 </resources>
 
 
