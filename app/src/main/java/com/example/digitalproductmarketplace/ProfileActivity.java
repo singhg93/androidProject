@@ -13,9 +13,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.digitalproductmarketplace.Boundary.UserDAO;
 import com.example.digitalproductmarketplace.Entity.User;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -25,29 +31,8 @@ public class ProfileActivity extends AppCompatActivity {
     TextView _lastName;
     TextView _email;
     Button _logOut;
-
-    /**
-     *Tried to make an option of logout on the bar, try it later on!!
-     * one menu resource directory is there with one menu resource file
-     */
-//    Boolean logout = false;
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        MenuInflater inflator = getMenuInflater();
-//        inflator.inflate(R.menu.logout_item_menu, menu);
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        switch (item.getItemId()){
-//            case R.id.logOutMenu:
-//                logout = true;
-//                break;
-//        }
-//        return true;
-//    }
-
+    SharedPreferences sharedPref;
+    GoogleSignInClient _myGoogleSignOutClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,18 +45,26 @@ public class ProfileActivity extends AppCompatActivity {
         _email = findViewById(R.id.profileEmail);
         _logOut = findViewById(R.id.logOutBtn);
 
-        final SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        /**
+         * This class i don't know about may be work wirhtout it too!!
+         */
+        GoogleSignInOptions _gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+        _myGoogleSignOutClient = GoogleSignIn.getClient(this, _gso);
 
-        //log out button clear the sharedPreferences and make the user take out to login acrivity
+
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+
+        //log out button clear the sharedPreferences and
+        //make the user take out to login activity
         _logOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.clear();
                 editor.commit();
-                Intent loginIntent = new Intent(ProfileActivity.this, LoginActivity.class);
-                startActivity(loginIntent);
-                finish();
+                signOut();
             }
         });
 
@@ -93,7 +86,31 @@ public class ProfileActivity extends AppCompatActivity {
             _lastName.setText(_signedInUser.get_lastName());
             _email.setText(_signedInUser.get_email());
         }
-
     }
 
+    //signOut() method clears the connected google account to the application
+    //revokeAccess() method will disconnect the google account
+    //as it clears the information of account
+    private void signOut(){
+        _myGoogleSignOutClient.signOut()
+                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                revokeAccess();
+
+            }
+        });
+    }
+    private void revokeAccess(){
+        _myGoogleSignOutClient.revokeAccess()
+                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                Intent loginIntent =
+                        new Intent(ProfileActivity.this, LoginActivity.class);
+                startActivity(loginIntent);
+                finish();
+            }
+        });
+    }
 }
