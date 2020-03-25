@@ -27,16 +27,15 @@ import com.google.android.gms.tasks.Task;
 public class LoginActivity extends AppCompatActivity {
 
     EditText _loginEmail;
-    TextView _signUpTxt;
     EditText _loginPassword;
     Button _loginButton;
     SignInButton _googleSignInButton;
     TextView _invalidLogin;
+    TextView _noAccount;
     GoogleSignInOptions _gso;
     GoogleSignInClient _myGoogleSignInClient;
     GoogleSignInAccount _googleAccount;
     User _signedInUser;
-    TextView _backToRegistration;
     UserDAO _userDAO = new UserDAO(LoginActivity.this);
     final int RC_SIGN_IN = 1599;
     final String SIGN_IN_TAG = "Sign in error";
@@ -53,9 +52,9 @@ public class LoginActivity extends AppCompatActivity {
         _loginPassword = findViewById(R.id.login_password);
         _loginButton = findViewById(R.id.login_button);
         _invalidLogin = findViewById(R.id.invalid_login);
+        _noAccount = findViewById(R.id.no_account);
         _signedInUser = new User();
         _googleSignInButton = findViewById(R.id.google_sign_in);
-        _backToRegistration = findViewById(R.id.no_account);
 
         SharedPreferences sharedPref
                 = PreferenceManager.getDefaultSharedPreferences(this);
@@ -69,22 +68,6 @@ public class LoginActivity extends AppCompatActivity {
             }
 
         }
-
-        // if no account is clicked
-        _backToRegistration.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent registrationIntent = new Intent(LoginActivity.this, RegistrationActivity.class);
-                startActivity(registrationIntent);
-        //if user want to create new account
-        //click on sign up text to go to Registration activity
-        _signUpTxt = findViewById(R.id.signUpTxt);
-        _signUpTxt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(LoginActivity.this, RegistrationActivity.class));
-            }
-        });
 
         // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
@@ -112,6 +95,14 @@ public class LoginActivity extends AppCompatActivity {
                 if (validateLoginCredentials()) {
                     authenticateUser();
                 }
+            }
+        });
+
+        _noAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent signUpIntent = new Intent(LoginActivity.this, RegistrationActivity.class);
+                startActivity(signUpIntent);
             }
         });
     }
@@ -144,11 +135,9 @@ public class LoginActivity extends AppCompatActivity {
         String email = _loginEmail.getText().toString();
         if (email.equals("") || !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             _loginEmail.setError("Please enter a valid email!");
-            _loginEmail.requestFocus();
             return false;
         } else if (_loginPassword.getText().toString().equals("")) {
             _loginPassword.setError("Please enter a password!");
-            _loginPassword.requestFocus();
             return false;
         } else {
             return true;
