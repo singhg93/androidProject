@@ -26,20 +26,28 @@ public class ProfileActivity extends AppCompatActivity {
     TextView _email;
     Button _logOut;
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflator = getMenuInflater();
-        inflator.inflate(R.menu.logout_item_menu, menu);
-        return true;
-    }
-
+    /**
+     *Tried to make an option of logout on the bar, try it later on!!
+     * one menu resource directory is there with one menu resource file
+     */
+//    Boolean logout = false;
 //    @Override
-//    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        MenuInflater inflator = getMenuInflater();
+//        inflator.inflate(R.menu.logout_item_menu, menu);
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
 //        switch (item.getItemId()){
 //            case R.id.logOutMenu:
-//
+//                logout = true;
+//                break;
 //        }
+//        return true;
 //    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,8 +60,21 @@ public class ProfileActivity extends AppCompatActivity {
         _email = findViewById(R.id.profileEmail);
         _logOut = findViewById(R.id.logOutBtn);
 
+        final SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
 
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        //log out button clear the sharedPreferences and make the user take out to login acrivity
+        _logOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.clear();
+                editor.commit();
+                Intent loginIntent = new Intent(ProfileActivity.this, LoginActivity.class);
+                startActivity(loginIntent);
+                finish();
+            }
+        });
+
         if (sharedPref.contains("EMAIL")) {
             String userEmail = sharedPref.getString("EMAIL", "");
             _signedInUser = _userDAO.getUser(userEmail);
@@ -68,19 +89,11 @@ public class ProfileActivity extends AppCompatActivity {
             startActivity(loginIntent);
             finish();
         } else {
-
             _firstName.setText(_signedInUser.get_firstName());
             _lastName.setText(_signedInUser.get_lastName());
             _email.setText(_signedInUser.get_email());
         }
 
-//        _logOut.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//            }
-//        });
-
-
     }
+
 }
