@@ -40,6 +40,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
         // get all the fields from their ids
         _backtologin = findViewById(R.id.no_account);
+        final TextView backtologin=findViewById(R.id.signUpTxt);
         _firstName = findViewById(R.id.firstNameTxt);
         _lastName = findViewById(R.id.lastNameTxt);
         _emailTxt = findViewById(R.id.login_email);
@@ -124,6 +125,7 @@ public class RegistrationActivity extends AppCompatActivity {
         } else if ( !password.equals(passwordConfirm) ) {
 
             _rePasswordTxt.setError("Both password fields must match!");
+            _rePasswordTxt.requestFocus();
 
             return false;
 
@@ -138,6 +140,7 @@ public class RegistrationActivity extends AppCompatActivity {
                     "and no white space";
 
             _passwordTxt.setError(toastMsg);
+            _passwordTxt.requestFocus();
 
             return false;
         } else {
