@@ -42,12 +42,11 @@ public class ProfileActivity extends AppCompatActivity {
         _email = findViewById(R.id.profileEmail);
         _logOut = findViewById(R.id.logOutBtn);
 
-        /**
-         * This class i don't know about may be work without it too!!
-         */
+
         _gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
+
         _myGoogleSignOutClient = GoogleSignIn.getClient(this, _gso);
 
 
@@ -65,6 +64,8 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
+
+        //
         if (_sharedPref.contains("EMAIL")) {
             String userEmail = _sharedPref.getString("EMAIL", "");
             _signedInUser = _userDAO.getUser(userEmail);
