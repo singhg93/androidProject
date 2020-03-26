@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -82,8 +83,17 @@ public class ProfileActivity extends AppCompatActivity {
             startActivity(loginIntent);
             finish();
         } else {
-            _firstName.setText(_signedInUser.get_firstName());
-            _lastName.setText(_signedInUser.get_lastName());
+            if (!_signedInUser.get_firstName().equals("null")) {
+                _firstName.setText(_signedInUser.get_firstName());
+            }
+            if (!_signedInUser.get_lastName().equals("null")) {
+                _lastName.setText(_signedInUser.get_lastName());
+            }
+
+            if (_signedInUser.get_lastName() == null && _signedInUser.get_firstName() == null) {
+                _firstName.setText("No name given");
+            }
+
             _email.setText(_signedInUser.get_email());
         }
     }

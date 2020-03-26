@@ -20,6 +20,8 @@
     <string name="account">Account Info</string>
     <string name="profiletext">Profile</string>
     <string name="logOut">Log out</string>
+    <string name="first_name_label">Name</string>
+    <string name="email_label">Email</string>
 </resources>
 
 
