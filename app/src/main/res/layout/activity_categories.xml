@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Categories">
+
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="230dp"
+                    android:background="@drawable/back"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    //to set image and text inside back image
+
+                    <ImageView
+                        android:layout_width="90dp"
+                        android:layout_height="90dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/list" />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="10dp"
+                        android:text="LIST OF CATEGORIES"
+                        android:textColor="#ffffff"
+                        android:textSize="24dp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+                //verticalLayout inside vertical layout we will use 2 horginatal layout
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="251dp"
+                    android:layout_marginRight="10dp"
+                    android:orientation="vertical">
+                    //inside horzontal layout we will make 2 horizontal layout
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:layout_marginBottom="10dp"
+                        android:orientation="horizontal">
+
+                        // to setup cardView first we will add card support library
+                        //1st cardview for audio category
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginRight="10dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+
+                                <ImageView
+                                    android:id="@+id/imageViewaudio"
+                                    android:layout_width="100dp"
+                                    android:layout_height="100dp"
+                                    android:layout_centerInParent="true"
+                                    android:src="@drawable/audooo"
+
+                                    />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/imageViewaudio"
+                                    android:layout_centerHorizontal="true"
+                                    android:text="AUDIO"
+                                    android:textSize="20dp"
+                                    android:textStyle="bold" />
+
+                                <Button
+                                    android:id="@+id/ButtonAudio"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="@android:color/transparent" />
+                            </RelativeLayout>
+
+
+                        </androidx.cardview.widget.CardView>
+                        //2nd cardview for video category
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+
+                                <ImageView
+                                    android:id="@+id/imageViewVideo"
+                                    android:layout_width="100dp"
+                                    android:layout_height="100dp"
+                                    android:layout_centerInParent="true"
+                                    android:src="@drawable/video"
+
+                                    />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/imageViewVideo"
+                                    android:layout_centerHorizontal="true"
+                                    android:text="VIDEO"
+                                    android:textSize="20dp"
+                                    android:textStyle="bold" />
+
+                                <Button
+                                    android:id="@+id/ButtonVideo"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="@android:color/transparent" />
+                            </RelativeLayout>
+
+                        </androidx.cardview.widget.CardView>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:layout_marginBottom="10dp"
+                        android:orientation="horizontal">
+                        //cardview for 3rd category
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginRight="10dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+
+                                <ImageView
+                                    android:id="@+id/imageViewEbooks"
+                                    android:layout_width="100dp"
+                                    android:layout_height="100dp"
+                                    android:layout_centerInParent="true"
+                                    android:src="@drawable/eb"
+
+                                    />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/imageViewEbooks"
+                                    android:layout_centerHorizontal="true"
+                                    android:text="EBOOK'S"
+                                    android:textSize="20dp"
+                                    android:textStyle="bold" />
+
+                                <Button
+                                    android:id="@+id/ButtonEbooks"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="@android:color/transparent" />
+                            </RelativeLayout>
+
+
+                        </androidx.cardview.widget.CardView>
+
+
+                        //cardiew for graphic category
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+
+                                <ImageView
+                                    android:id="@+id/imageViewGraphic"
+                                    android:layout_width="100dp"
+                                    android:layout_height="100dp"
+                                    android:layout_centerInParent="true"
+                                    android:src="@drawable/gg"
+
+                                    />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/imageViewGraphic"
+                                    android:layout_centerHorizontal="true"
+                                    android:text="GRAPHIC DESIGN'S"
+                                    android:textSize="20dp"
+                                    android:textStyle="bold" />
+
+                                <Button
+                                    android:id="@+id/ButtonGraphics"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="@android:color/transparent" />
+                            </RelativeLayout>
+
+                        </androidx.cardview.widget.CardView>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>
