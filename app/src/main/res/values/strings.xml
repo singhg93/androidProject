@@ -22,6 +22,11 @@
     <string name="logOut">Log out</string>
     <string name="first_name_label">Name</string>
     <string name="email_label">Email</string>
+    <string name="ebooks">Ebook</string>
+    <string name="videos">Video</string>
+    <string name="audios">Audio</string>
+    <string name="graphic">Graphic Design</string>
+    <string name="categories_heading">CATEGORIES</string>
 </resources>
 
 

@@ -39,13 +39,14 @@
 
 
                     <TextView
+                        android:id="@+id/;"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginTop="10dp"
-                        android:text="LIST OF CATEGORIES"
+                        android:text="@string/categories_heading"
                         android:textColor="#ffffff"
-                        android:textSize="24dp"
+                        android:textSize="24sp"
                         android:textStyle="bold" />
                 </LinearLayout>
                 //verticalLayout inside vertical layout we will use 2 horginatal layout
@@ -95,8 +96,8 @@
                                     android:layout_height="wrap_content"
                                     android:layout_below="@+id/imageViewaudio"
                                     android:layout_centerHorizontal="true"
-                                    android:text="AUDIO"
-                                    android:textSize="20dp"
+                                    android:text="@string/audios"
+                                    android:textSize="24sp"
                                     android:textStyle="bold" />
 
                                 <Button
@@ -137,8 +138,8 @@
                                     android:layout_height="wrap_content"
                                     android:layout_below="@+id/imageViewVideo"
                                     android:layout_centerHorizontal="true"
-                                    android:text="VIDEO"
-                                    android:textSize="20dp"
+                                    android:text="@string/videos"
+                                    android:textSize="24sp"
                                     android:textStyle="bold" />
 
                                 <Button
@@ -186,8 +187,8 @@
                                     android:layout_height="wrap_content"
                                     android:layout_below="@+id/imageViewEbooks"
                                     android:layout_centerHorizontal="true"
-                                    android:text="EBOOK'S"
-                                    android:textSize="20dp"
+                                    android:text="@string/ebooks"
+                                    android:textSize="24sp"
                                     android:textStyle="bold" />
 
                                 <Button
@@ -230,8 +231,8 @@
                                     android:layout_height="wrap_content"
                                     android:layout_below="@+id/imageViewGraphic"
                                     android:layout_centerHorizontal="true"
-                                    android:text="GRAPHIC DESIGN'S"
-                                    android:textSize="20dp"
+                                    android:text="@string/graphic"
+                                    android:textSize="24sp"
                                     android:textStyle="bold" />
 
                                 <Button

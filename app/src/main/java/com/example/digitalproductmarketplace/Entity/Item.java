@@ -11,6 +11,24 @@ public class Item {
     private double _price;
     private String _catagory;
     private User _user;
+    private String _picName;
+    private String _fileUrl;
+
+    public String get_picName() {
+        return _picName;
+    }
+
+    public void set_picName(String _picName) {
+        this._picName = _picName;
+    }
+
+    public String get_fileUrl() {
+        return _fileUrl;
+    }
+
+    public void set_fileUrl(String _fileUrl) {
+        this._fileUrl = _fileUrl;
+    }
 
     //default constructor
     public Item() {

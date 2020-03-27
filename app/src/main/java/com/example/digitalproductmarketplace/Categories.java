@@ -19,8 +19,10 @@ public class Categories extends AppCompatActivity {
         setContentView(R.layout.activity_categories);
 
         _audioCatBtn = findViewById(R.id.ButtonAudio);
-        _videoCatBtn=findViewById(R.id.ButtonVideo);
-_ebookCatBtn=findViewById(R.id.ButtonEbooks);
-_grapicCatBtn=findViewById(R.id.ButtonGraphics);
+        _videoCatBtn = findViewById(R.id.ButtonVideo);
+        _ebookCatBtn = findViewById(R.id.ButtonEbooks);
+        _grapicCatBtn = findViewById(R.id.ButtonGraphics);
+
+        //
     }
 }
