@@ -10,7 +10,7 @@ public class Item {
     private long _id;
     private String _description;
     private double _price;
-    private String _catagory;
+    private String _category;
     private long _userId;
     private String _picName;
     private String _fileUrl;
@@ -69,14 +69,14 @@ public class Item {
      * @return Item of which _catagory
      */
     public String get_catagory() {
-        return _catagory;
+        return _category;
     }
 
     /**
-     * @param _catagory sets _catagory of an Item
+     * @param _category sets _catagory of an Item
      */
-    public void set_catagory(String _catagory) {
-        this._catagory = _catagory;
+    public void set_catagory(String _category) {
+        this._category = _category;
     }
 
     /**

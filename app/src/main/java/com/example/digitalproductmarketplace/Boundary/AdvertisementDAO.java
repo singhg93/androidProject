@@ -1,6 +1,7 @@
 package com.example.digitalproductmarketplace.Boundary;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
@@ -15,6 +16,11 @@ public class AdvertisementDAO implements AdvertisementPostDAOInterface {
     private final String LOG_TAG = "Advertisement DAO";
     private DBHelper _dbHelper;
     private SQLiteDatabase _db;
+
+
+    public AdvertisementDAO (Context context) {
+        _dbHelper = new DBHelper(context);
+    }
 
 //
 //    // column names for adPosts table
