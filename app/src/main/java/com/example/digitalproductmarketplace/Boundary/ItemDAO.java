@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class ItemDAO implements ItemDAOInterface {
 
 
-    private final String LOG_TAG = "USER DAO";
+    private final String LOG_TAG = "Item DAO";
     private DBHelper _dbHelper;
     private SQLiteDatabase _db;
 
@@ -78,6 +78,7 @@ public class ItemDAO implements ItemDAOInterface {
 
             // if the cursor has a next row, move to the first one and get all the required infor
             if (cursor.moveToNext()) {
+                cursor.moveToFirst();
                 long id = cursor.getLong(cursor.getColumnIndexOrThrow(DBHelper.ID));
                 String itemDescription = cursor.getString(cursor.getColumnIndexOrThrow(DBHelper.DESCRIPTION));
                 double itemPrice = cursor.getDouble(cursor.getColumnIndexOrThrow(DBHelper.PRICE));
@@ -141,7 +142,6 @@ public class ItemDAO implements ItemDAOInterface {
             Item nextItem = new Item();
 
             while (cursor.moveToNext()) {
-                cursor.moveToFirst();
                 long id = cursor.getLong(cursor.getColumnIndexOrThrow(DBHelper.ID));
                 String itemDescription = cursor.getString(cursor.getColumnIndexOrThrow(DBHelper.DESCRIPTION));
                 double itemPrice = cursor.getDouble(cursor.getColumnIndexOrThrow(DBHelper.PRICE));
