@@ -39,7 +39,7 @@ public class ItemDAO implements ItemDAOInterface {
 //    public static final String FILE_URL = "fileUrl";
 
     @Override
-    public Item getItem(int itemId) {
+    public Item getItem(long itemId) {
 
         try {
 

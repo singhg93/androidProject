@@ -9,7 +9,7 @@ public interface ItemDAOInterface {
     /**
      * Retrives the details of the item with the given id from the database
      */
-    public Item getItem(int itemId);
+    public Item getItem(long itemId);
 
     /**
      *
