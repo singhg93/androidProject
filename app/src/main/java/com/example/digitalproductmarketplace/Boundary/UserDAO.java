@@ -66,7 +66,7 @@ public class UserDAO implements UserDAOInterface {
 
             // list all the columns that should be returned from the database
             String[] projection = {
-                    DBHelper._ID,
+                    DBHelper.ID,
                     DBHelper.FIRST_NAME_COLUMN,
                     DBHelper.LAST_NAME_COLUMN,
                     DBHelper.EMAIL_COLUMN,
@@ -94,7 +94,7 @@ public class UserDAO implements UserDAOInterface {
 
             // if the cursor has a next row, move to the first one and get all the required infor
             if (cursor.moveToNext()) {
-                long userId = cursor.getLong(cursor.getColumnIndexOrThrow(DBHelper._ID));
+                long userId = cursor.getLong(cursor.getColumnIndexOrThrow(DBHelper.ID));
                 String firstName = cursor.getString(cursor.getColumnIndexOrThrow(DBHelper.FIRST_NAME_COLUMN));
                 String lastName = cursor.getString(cursor.getColumnIndexOrThrow(DBHelper.LAST_NAME_COLUMN));
                 String email = cursor.getString(cursor.getColumnIndexOrThrow(DBHelper.EMAIL_COLUMN));
@@ -131,7 +131,7 @@ public class UserDAO implements UserDAOInterface {
 
             // list all the columns that should be returned from the database
             String[] projection = {
-                    DBHelper._ID,
+                    DBHelper.ID,
                     DBHelper.FIRST_NAME_COLUMN,
                     DBHelper.LAST_NAME_COLUMN,
                     DBHelper.EMAIL_COLUMN,
@@ -155,7 +155,7 @@ public class UserDAO implements UserDAOInterface {
 
             while (cursor.moveToNext()) {
                 cursor.moveToFirst();
-                long userId = cursor.getLong(cursor.getColumnIndexOrThrow(DBHelper._ID));
+                long userId = cursor.getLong(cursor.getColumnIndexOrThrow(DBHelper.ID));
                 String firstName = cursor.getString(cursor.getColumnIndexOrThrow(DBHelper.FIRST_NAME_COLUMN));
                 String lastName = cursor.getString(cursor.getColumnIndexOrThrow(DBHelper.LAST_NAME_COLUMN));
                 String email = cursor.getString(cursor.getColumnIndexOrThrow(DBHelper.EMAIL_COLUMN));
@@ -191,7 +191,7 @@ public class UserDAO implements UserDAOInterface {
             values.put(DBHelper.EMAIL_COLUMN, updatedUser.get_email());
 
 // Which row to update, based on the title
-            String selection = DBHelper._ID + " = ?";
+            String selection = DBHelper.ID + " = ?";
             String[] selectionArgs = {String.valueOf(updatedUser.get_id())};
 
             int count = _db.update(
