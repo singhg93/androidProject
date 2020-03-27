@@ -12,14 +12,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class recyclerViewCustomAdapter extends RecyclerView.Adapter<recyclerViewCustomAdapter.myViewHolder> {
+public class RecyclerViewCustomAdapter extends RecyclerView.Adapter<RecyclerViewCustomAdapter.myViewHolder> {
 
     //private List<Item> myItemInfo;
     private List<String> itemName = new ArrayList<>();
     private List<Integer> itemPic = new ArrayList<>();
     private List<String> itemDescription = new ArrayList<>();
 
-    public recyclerViewCustomAdapter(List<String> itemName, List<Integer> itemPic, List<String> itemDescription) {
+    public RecyclerViewCustomAdapter(List<String> itemName, List<Integer> itemPic, List<String> itemDescription) {
         this.itemName = itemName;
         this.itemPic = itemPic;
         this.itemDescription = itemDescription;

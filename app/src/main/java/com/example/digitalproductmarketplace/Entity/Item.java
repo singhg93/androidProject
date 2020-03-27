@@ -7,33 +7,36 @@ package com.example.digitalproductmarketplace.Entity;
 public class Item {
 
     //attributes of this class
+    private long _id;
     private String _description;
     private double _price;
     private String _catagory;
-    private User _user;
+    private long _userId;
     private String _picName;
     private String _fileUrl;
 
-    public String get_picName() {
-        return _picName;
-    }
 
-    public void set_picName(String _picName) {
-        this._picName = _picName;
-    }
-
-    public String get_fileUrl() {
-        return _fileUrl;
-    }
-
-    public void set_fileUrl(String _fileUrl) {
-        this._fileUrl = _fileUrl;
-    }
 
     //default constructor
     public Item() {
     }
 
+
+    /**
+     *
+     * @return
+     */
+    public long get_id() {
+        return _id;
+    }
+
+    /**
+     *
+     * @param _id
+     */
+    public void set_id(long _id) {
+        this._id = _id;
+    }
     /**
      * @return the description of the selected Item
      */
@@ -78,17 +81,49 @@ public class Item {
 
     /**
      *
-     * @param user
+     * @param userId
      */
-    public void set_user( User user ) {
-        _user = user;
+    public void set_userId( long userId ) {
+        _userId = userId;
     }
 
     /**
      *
      * @return
      */
-    public User get_user() {
-        return _user;
+    public long get_userId() {
+        return _userId;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public String get_picName() {
+        return _picName;
+    }
+
+    /**
+     *
+     * @param _picName
+     */
+    public void set_picName(String _picName) {
+        this._picName = _picName;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public String get_fileUrl() {
+        return _fileUrl;
+    }
+
+    /**
+     *
+     * @param _fileUrl
+     */
+    public void set_fileUrl(String _fileUrl) {
+        this._fileUrl = _fileUrl;
     }
 }
