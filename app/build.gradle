@@ -38,11 +38,5 @@ dependencies {
     //recyclerview
     implementation 'com.android.support:recyclerview-v7:29.+'
 
-    //cardview
-    implementation 'com.android.support:cardview-v7:29.+'
-
-    //gridlayout
-    implementation 'androidx.gridlayout:gridlayout:1.0.0'
-
 
 }
