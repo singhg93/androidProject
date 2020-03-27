@@ -1,6 +1,9 @@
 package com.example.digitalproductmarketplace.Entity;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * This class stores the information about a AdvertisementPost.
@@ -10,55 +13,115 @@ import java.util.Date;
  */
 public class AdvertisementPost {
 
+
     //atrributes of AdvertisementPost
-    private Item _item;
-    private Date _datePosted;
-    private Date _lastUpdated;
+    private long _postId;
+    private long _itemId;
+    private long _userId;
+    private long _datePostedEpoch;
+    private long _lastUpdatedEpoch;
 
     //default constructor
     public AdvertisementPost() {
     }
 
     /**
-     * @param @return name of the Item
+     * @param @return id of the Item
      */
-    public Item get_item() {
-        return _item;
+    public long get_itemId() {
+        return _itemId;
 
     }
 
     /**
-     * @param _item of the posted advertisement
+     *
+     * @param _itemId
      */
-    public void set_item(Item _item) {
-        this._item = _item;
+    public void set_itemId(long _itemId) {
+        this._itemId = _itemId;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public long get_postId() {
+        return _postId;
+    }
+
+    /**
+     *
+     * @param _postId
+     */
+    public void set_postId(long _postId) {
+        this._postId = _postId;
+    }
+
+
+    /**
+     *
+     * @param _lastUpdatedEpoch
+     */
+    public void set_lastUpdatedEpoch(long _lastUpdatedEpoch) {
+        this._lastUpdatedEpoch = _lastUpdatedEpoch;
     }
 
     /**
      * @param @returns date on which advertisement was posted
      */
-    public Date get_datePosted() {
-        return _datePosted;
+    public long get_datePostedEpoch() {
+        return _datePostedEpoch;
+    }
+
+    public String get_datePosted() {
+        Date lastUpdated = new Date(_datePostedEpoch);
+        DateFormat simpleDateFormate = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.US);
+        return (simpleDateFormate.format(lastUpdated));
     }
 
     /**
-     * @param _datePosted on which advertisement was posted
+     * @param _datePostedEpoch on which advertisement was posted
      */
-    public void set_datePosted(Date _datePosted) {
-        this._datePosted = _datePosted;
+    public void set_datePostedEpoch(long _datePostedEpoch) {
+        this._datePostedEpoch = _datePostedEpoch;
     }
 
     /**
      * @param @returns the last updated date
      */
-    public Date get_dateUpdated() {
-        return _lastUpdated;
+    public long get_dateUpdatedEpoch() {
+        return _lastUpdatedEpoch;
+    }
+
+
+    public String get_dateUpdated() {
+        Date lastUpdated = new Date(_lastUpdatedEpoch);
+        DateFormat simpleDateFormate = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.US);
+        return (simpleDateFormate.format(lastUpdated));
     }
 
     /**
-     * @param _dateUpdated updation date
+     * @param _dateUpdatedEpoch updation date
      */
-    public void set_dateUpdated(Date _dateUpdated) {
-        this._lastUpdated = _dateUpdated;
+    public void set_dateUpdatedEpoch(long _dateUpdatedEpoch) {
+        this._lastUpdatedEpoch = _dateUpdatedEpoch;
     }
+
+
+    /**
+     *
+     * @return
+     */
+    public long get_userId() {
+        return _userId;
+    }
+
+    /**
+     *
+     * @param _userId
+     */
+    public void set_userId(long _userId) {
+        this._userId = _userId;
+    }
+
 }
