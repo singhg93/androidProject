@@ -2,12 +2,11 @@ package com.example.digitalproductmarketplace.Entity;
 
 import java.util.Date;
 
-/*
-
- This class stores the information about a AdvertisementPost.
-this class stores the description of Item,name of Item,
-date on which advertisement was posted,
-the date on which changes made on advertisement
+/**
+ * This class stores the information about a AdvertisementPost.
+ * this class stores the description of Item,name of Item,
+ * date on which advertisement was posted,
+ * the date on which changes made on advertisement
  */
 public class AdvertisementPost {
 
