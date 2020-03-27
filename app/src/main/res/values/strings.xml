@@ -27,6 +27,17 @@
     <string name="audios">Audio</string>
     <string name="graphic">Graphic Design</string>
     <string name="categories_heading">CATEGORIES</string>
+    <string name="select_category">Category</string>
+    <string name="profile_text">Profile</string>
+    <string name="add_post">Add a post</string>
+    <string name="show_posts">Show all Posts</string>
+    <string name="create_post">Create a new post</string>
+    <string-array name="categories_list">
+        <item>Audio</item>
+        <item>Video</item>
+        <item>Ebook</item>
+        <item>Graphic Design</item>
+    </string-array>
 </resources>
 
 
