@@ -36,4 +36,5 @@ public interface AdvertisementPostDAOInterface {
 
     public int deleteAdvertisement( AdvertisementPost adToBeDeleted );
 
+    ArrayList<AdvertisementPost> getPostsForCategory(String category);
 }

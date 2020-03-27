@@ -9,8 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <meta-data
-            android:name="com.google.android.actions" />
+        <activity android:name=".AddPostActivity"></activity>
+
+        <meta-data android:name="com.google.android.actions" />
 
         <activity android:name=".Categories">
             <intent-filter>
@@ -21,7 +22,7 @@
         </activity>
         <activity android:name=".RegistrationActivity" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".LoginActivity"></activity>
+        <activity android:name=".LoginActivity" />
         <activity android:name=".ProfileActivity" />
     </application>
 

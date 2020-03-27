@@ -118,7 +118,7 @@ public class AdvertisementDAO implements AdvertisementPostDAOInterface {
                     null, // no filter arguments for where clause
                     null,   // don't group the results
                     null,   // don't filter by row groups
-                    null    // don't sort since only one result expected
+                    DBHelper.DATE_UPDATED  // sort by last updated date
             );
 
             // instantiate a new user
@@ -137,6 +137,8 @@ public class AdvertisementDAO implements AdvertisementPostDAOInterface {
                 nextPost.set_userId(adUserId);
                 nextPost.set_datePostedEpoch(datePosted);
                 nextPost.set_dateUpdatedEpoch(dateUpdated);
+                allPosts.add(nextPost);
+
             }
 
             // return the user
@@ -233,4 +235,65 @@ public class AdvertisementDAO implements AdvertisementPostDAOInterface {
             return 0;
         }
     }
+
+    @Override
+    public ArrayList<AdvertisementPost> getPostsForCategory(String category) {
+        ArrayList<AdvertisementPost> postsForCategories = new ArrayList<>();
+        try {
+            _db = _dbHelper.getReadableDatabase();
+
+            // list all the columns that should be returned from the database
+            String[] projection = {
+                    DBHelper.AD_ID,
+                    DBHelper.ITEM_ID_FK,
+                    DBHelper.USER_ID,
+                    DBHelper.DATE_POSTED,
+                    DBHelper.DATE_UPDATED
+            };
+
+            String selection = DBHelper.CATEGORY + " = ?";
+
+            // Specify arguments in placeholder order.
+            String[] selectionArgs = {category};
+
+
+            // get the results
+            Cursor cursor = _db.query(
+                    DBHelper.AD_POST_TABLE,  // The table to query
+                    projection, // the array of columns to return
+                    selection,  // don't filter
+                    selectionArgs, // no filter arguments for where clause
+                    null,   // don't group the results
+                    null,   // don't filter by row groups
+                    DBHelper.DATE_UPDATED  // sort by last updated date
+            );
+
+            // instantiate a new user
+            AdvertisementPost nextPost = new AdvertisementPost();
+
+            while (cursor.moveToNext()) {
+                long postId = cursor.getLong(cursor.getColumnIndexOrThrow(DBHelper.AD_ID));
+                long adItemId = cursor.getLong(cursor.getColumnIndexOrThrow(DBHelper.ITEM_ID_FK));
+                long adUserId = cursor.getLong(cursor.getColumnIndexOrThrow(DBHelper.USER_ID));
+                long datePosted = cursor.getLong(cursor.getColumnIndexOrThrow(DBHelper.DATE_POSTED));
+                long dateUpdated = cursor.getLong(cursor.getColumnIndexOrThrow(DBHelper.DATE_UPDATED));
+
+                // create a user object from the database values
+                nextPost.set_postId(postId);
+                nextPost.set_itemId(adItemId);
+                nextPost.set_userId(adUserId);
+                nextPost.set_datePostedEpoch(datePosted);
+                nextPost.set_dateUpdatedEpoch(dateUpdated);
+                postsForCategories.add(nextPost);
+            }
+
+            // return the user
+            return postsForCategories;
+        } catch (Exception ex) {
+            Log.e(LOG_TAG, ex.getMessage());
+            return null;
+        }
+    }
+
+
 }
