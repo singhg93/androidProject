@@ -1,8 +1,8 @@
-package com.example.digitalproductmarketplace.Boundary;
+package com.example.digitalproductmarketplace.boundary;
 
 import java.util.ArrayList;
 
-import com.example.digitalproductmarketplace.Entity.User;
+import com.example.digitalproductmarketplace.entity.User;
 
 public interface UserDAOInterface {
 

@@ -9,12 +9,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.digitalproductmarketplace.Boundary.ItemDAO;
-import com.example.digitalproductmarketplace.Entity.AdvertisementPost;
-import com.example.digitalproductmarketplace.Entity.Item;
+import com.example.digitalproductmarketplace.boundary.ItemDAO;
+import com.example.digitalproductmarketplace.entity.AdvertisementPost;
+import com.example.digitalproductmarketplace.entity.Item;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class RecyclerViewCustomAdapter extends RecyclerView.Adapter<RecyclerViewCustomAdapter.myViewHolder> {
 

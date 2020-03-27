@@ -1,4 +1,4 @@
-package com.example.digitalproductmarketplace.Entity;
+package com.example.digitalproductmarketplace.entity;
 
 import com.example.digitalproductmarketplace.org.mindrot.jbcrypt.BCrypt;
 

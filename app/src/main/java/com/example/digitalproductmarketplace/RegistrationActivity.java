@@ -11,8 +11,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.digitalproductmarketplace.Boundary.UserDAO;
-import com.example.digitalproductmarketplace.Entity.User;
+import com.example.digitalproductmarketplace.boundary.UserDAO;
+import com.example.digitalproductmarketplace.entity.User;
 
 
 import java.util.regex.Pattern;

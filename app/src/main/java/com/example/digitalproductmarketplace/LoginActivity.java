@@ -14,8 +14,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.example.digitalproductmarketplace.Boundary.UserDAO;
-import com.example.digitalproductmarketplace.Entity.User;
+import com.example.digitalproductmarketplace.boundary.UserDAO;
+import com.example.digitalproductmarketplace.entity.User;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;

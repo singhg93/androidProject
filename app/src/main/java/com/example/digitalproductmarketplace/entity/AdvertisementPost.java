@@ -1,4 +1,4 @@
-package com.example.digitalproductmarketplace.Entity;
+package com.example.digitalproductmarketplace.entity;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

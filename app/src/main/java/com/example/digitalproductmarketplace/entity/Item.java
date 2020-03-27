@@ -1,4 +1,4 @@
-package com.example.digitalproductmarketplace.Entity;
+package com.example.digitalproductmarketplace.entity;
 
 /**
  * This class is for storing the details of an Item of a post and the attributes are

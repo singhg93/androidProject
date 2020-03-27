@@ -1,4 +1,4 @@
-package com.example.digitalproductmarketplace.Boundary;
+package com.example.digitalproductmarketplace.boundary;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

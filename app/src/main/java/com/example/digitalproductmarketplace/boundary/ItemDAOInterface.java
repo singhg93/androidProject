@@ -1,6 +1,6 @@
-package com.example.digitalproductmarketplace.Boundary;
+package com.example.digitalproductmarketplace.boundary;
 
-import com.example.digitalproductmarketplace.Entity.Item;
+import com.example.digitalproductmarketplace.entity.Item;
 
 import java.util.ArrayList;
 
