@@ -29,7 +29,7 @@
     <string name="categories_heading">CATEGORIES</string>
     <string name="select_category">Category</string>
     <string name="profile_text">Profile</string>
-    <string name="add_post">Add a post</string>
+    <string name="add_post">Add post</string>
     <string name="show_posts">Show all Posts</string>
     <string name="create_post">Create a new post</string>
     <string-array name="categories_list">
@@ -38,6 +38,12 @@
         <item>Ebook</item>
         <item>Graphic Design</item>
     </string-array>
+
+    <string name="choose_image">Choose Image</string>
+    <string name="chose_content">Choose Content File</string>
+    <string name="no_file_selected">Choose a file</string>
+    <string name="description">Description</string>
+    <string name="price">Price</string>
 </resources>
 
 

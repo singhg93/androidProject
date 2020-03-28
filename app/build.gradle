@@ -39,4 +39,8 @@ dependencies {
     implementation 'com.android.support:recyclerview-v7:29.+'
 
 
+    // file chooser
+    implementation 'com.github.angads25:filepicker:1.1.1'
+
+
 }

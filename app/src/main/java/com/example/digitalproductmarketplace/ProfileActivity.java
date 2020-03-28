@@ -30,6 +30,7 @@ public class ProfileActivity extends AppCompatActivity {
     SharedPreferences _sharedPref;
     GoogleSignInClient _myGoogleSignOutClient;
     GoogleSignInOptions _gso;
+    Button _addPostButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +42,7 @@ public class ProfileActivity extends AppCompatActivity {
         _lastName = findViewById(R.id.profileLastName);
         _email = findViewById(R.id.profileEmail);
         _logOut = findViewById(R.id.logOutBtn);
+        _addPostButton = findViewById(R.id.add_post_button);
 
 
         _gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -51,6 +53,24 @@ public class ProfileActivity extends AppCompatActivity {
 
 
         _sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+
+
+        // if the user wants to add a new post
+        _addPostButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                // start the add post activity
+                switch (v.getId()) {
+                    // if the add post button is clicked
+                    case R.id.add_post_button:
+                        Intent addPostIntent = new Intent(ProfileActivity.this, AddPostActivity.class);
+                        startActivity(addPostIntent);
+                        break;
+                }
+
+            }
+        });
 
         //log out button clear the sharedPreferences and
         //make the user take out to login activity
