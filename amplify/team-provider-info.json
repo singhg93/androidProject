@@ -1,0 +1,20 @@
+{
+    "android": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-uppro-android-111948-authRole",
+            "UnauthRoleArn": "arn:aws:iam::783995316114:role/amplify-uppro-android-111948-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::783995316114:role/amplify-uppro-android-111948-authRole",
+            "Region": "us-east-1",
+            "DeploymentBucketName": "amplify-uppro-android-111948-deployment",
+            "UnauthRoleName": "amplify-uppro-android-111948-unauthRole",
+            "StackName": "amplify-uppro-android-111948",
+            "StackId": "arn:aws:cloudformation:us-east-1:783995316114:stack/amplify-uppro-android-111948/0ba7cc00-72b3-11ea-89df-0ac49251e793",
+            "AmplifyAppId": "dgge3lf1updyl"
+        },
+        "categories": {
+            "auth": {
+                "uppro72826751": {}
+            }
+        }
+    }
+}

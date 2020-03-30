@@ -1,0 +1,15 @@
+{
+	"auth": {
+		"uppro72826751": {
+			"service": "Cognito",
+			"providerPlugin": "awscloudformation",
+			"dependsOn": []
+		}
+	},
+	"storage": {
+		"orangeMarketplace": {
+			"service": "S3",
+			"providerPlugin": "awscloudformation"
+		}
+	}
+}
