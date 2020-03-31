@@ -33,10 +33,6 @@ public class Categories extends AppCompatActivity {
         _ebookCardBtn = findViewById(R.id.ButtonEbooks);
         _grapicCardBtn = findViewById(R.id.ButtonGraphics);
 
-        _audioCard = findViewById(R.id.audio_card);
-        _videoCard = findViewById(R.id.video_card);
-        _ebookCard = findViewById(R.id.video_card);
-        _graphicCard = findViewById(R.id.graphic_card);
 
         _audioCardBtn.setOnClickListener(new View.OnClickListener() {
             @Override
