@@ -80,10 +80,6 @@ public class AddPostActivity extends AppCompatActivity {
         _chooseContentFileButton = findViewById(R.id.choose_content_file);
 
 
-
-
-
-
         // REFERENCE : https://github.com/Angads25/android-filepicker
 
         DialogProperties properties = new DialogProperties();
@@ -175,7 +171,7 @@ public class AddPostActivity extends AppCompatActivity {
                         .s3Client(new AmazonS3Client(AWSMobileClient.getInstance()))
                         .build();
 // get file with unique name;
-        File file = new File(getApplicationContext().getFilesDir(), "sample.txt");
+        File file = new File(getApplicationContext().getFilesDir(), getUniqueName());
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(file));
             writer.append("Howdy World!");
@@ -232,9 +228,19 @@ public class AddPostActivity extends AppCompatActivity {
     }
 
 
-
-
     // we are using date function because every time date with its time cannot be same;
+    private String getUniqueName() {
+
+        SimpleDateFormat everytimenew=new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
+        everytimenew.format(new Date());
+
+        //assemble filename
+
+        String  filename="file"+ everytimenew + ".txt";;
+        return filename;
+
+    }
+
 
 
 }
