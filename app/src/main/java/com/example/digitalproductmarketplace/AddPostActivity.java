@@ -42,6 +42,8 @@ public class AddPostActivity extends AppCompatActivity {
     private final String FILE_TAG = "File Chooser Error";
 
 
+
+
     private final String AWS_TAG = "AWS ERROR";
     private Toast _myToast;
     Button _chooseFileButton;
@@ -63,6 +65,8 @@ public class AddPostActivity extends AppCompatActivity {
         AWSMobileClient.getInstance().initialize(getApplicationContext(), new Callback<UserStateDetails>() {
             @Override
             public void onResult(UserStateDetails userStateDetails) {
+
+
                 Log.i(AWS_TAG, "AWSMobileClient initialized. User State is " + userStateDetails.getUserState());
             //    uploadWithTransferUtility("hello");
             }
@@ -229,6 +233,7 @@ public class AddPostActivity extends AppCompatActivity {
 
 
     // we are using date function because every time date with its time cannot be same;
+
     private String getUniqueName() {
 
         SimpleDateFormat everytimenew=new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
@@ -240,6 +245,58 @@ public class AddPostActivity extends AppCompatActivity {
         return filename;
 
     }
+
+ //download file from bucket list
+
+    
+ private void downloadWithTransferUtility() {
+
+     TransferUtility transferUtility =
+             TransferUtility.builder()
+                     .context(getApplicationContext())
+                     .awsConfiguration(AWSMobileClient.getInstance().getConfiguration())
+                     .s3Client(new AmazonS3Client(AWSMobileClient.getInstance()))
+                     .build();
+
+     TransferObserver downloadObserver =
+             transferUtility.download(
+                     "public/sample.txt",
+                     new File(getApplicationContext().getFilesDir(), "download.txt"));
+
+     // Attach a listener to the observer to get state update and progress notifications
+     downloadObserver.setTransferListener(new TransferListener() {
+
+         @Override
+         public void onStateChanged(int id, TransferState state) {
+             if (TransferState.COMPLETED == state) {
+                 // Handle a completed upload.
+             }
+         }
+
+         @Override
+         public void onProgressChanged(int id, long bytesCurrent, long bytesTotal) {
+             float percentDonef = ((float)bytesCurrent/(float)bytesTotal) * 100;
+             int percentDone = (int)percentDonef;
+
+             Log.d("Your Activity", "   ID:" + id + "   bytesCurrent: " + bytesCurrent + "   bytesTotal: " + bytesTotal + " " + percentDone + "%");
+         }
+
+         @Override
+         public void onError(int id, Exception ex) {
+             // Handle errors
+         }
+
+     });
+
+     // If you prefer to poll for the data, instead of attaching a
+     // listener, check for the state and progress in the observer.
+     if (TransferState.COMPLETED == downloadObserver.getState()) {
+         // Handle a completed upload.
+     }
+
+     Log.d("Your Activity", "Bytes Transferred: " + downloadObserver.getBytesTransferred());
+     Log.d("Your Activity", "Bytes Total: " + downloadObserver.getBytesTotal());
+ }
 
 
 
