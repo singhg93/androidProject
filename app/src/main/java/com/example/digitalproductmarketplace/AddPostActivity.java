@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,6 +42,7 @@ import java.util.Date;
 public class AddPostActivity extends AppCompatActivity {
 
     private final String FILE_TAG = "File Chooser Error";
+    private final String INPUT_TAG = "Input Error";
 
 
     // attributes
@@ -47,6 +50,10 @@ public class AddPostActivity extends AppCompatActivity {
     private Toast _myToast;
     Button _chooseFileButton;
     Button _chooseContentFileButton;
+    EditText _description;
+    Spinner _categories;
+    EditText _price;
+    Button _createPost;
     TextView _imageFilePath;
     TextView _contentFilePath;
     FilePickerDialog _imageDialog;
@@ -65,6 +72,10 @@ public class AddPostActivity extends AppCompatActivity {
         _imageFilePath = findViewById(R.id.image_file_path);
         _contentFilePath = findViewById(R.id.content_file_path);
         _chooseContentFileButton = findViewById(R.id.choose_content_file);
+        _createPost = findViewById(R.id.create_post);
+        _description = findViewById(R.id.description_input);
+        _categories = findViewById(R.id.categories_input);
+        _price = findViewById(R.id.price_input);
 
         // start the aws trasfer service
         getApplicationContext().startService(new Intent(getApplicationContext(), TransferService.class));
@@ -154,6 +165,7 @@ public class AddPostActivity extends AppCompatActivity {
             }
         });
 
+        // when the user wants to choose a display image for the post
         _chooseFileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -161,10 +173,22 @@ public class AddPostActivity extends AppCompatActivity {
             }
         });
 
+        // when the user wants to choose the content files
         _chooseContentFileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 _fileDialog.show();
+            }
+        });
+
+
+        // when the create post button is clicked
+        _createPost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (validateInput()) {
+                    // do something
+                }
             }
         });
 
@@ -273,6 +297,34 @@ public class AddPostActivity extends AppCompatActivity {
 
     }
 
+    private boolean validateInput() {
 
+        // get the text from the EditText views
+        String inputDescription = _description.getText().toString();
+        double inputPrice;
+        String category = _categories.getSelectedItem().toString();
+        try {
+            inputPrice = Double.parseDouble(_price.getText().toString());
+        } catch ( Exception ex ) {
+            _price.setError("Please enter a valid value for price");
+            Log.e(INPUT_TAG, ex.getMessage());
+            return false;
+        }
+        // validate all the input
+        if (inputDescription.equals("")) {
+            _description.setError("Please enter a short description for your product.");
+            return false;
+        } else if ( inputPrice < 1 ) {
+            _price.setError("Please enter a valid value for price.");
+            return false;
+        } else if ( _imageFile == null || _imageFile == "") {
+            _chooseFileButton.setError("Please choose a display image.");
+            return false;
+        } else if ( _contentFile == null || _contentFile.equals("")) {
+            _chooseContentFileButton.setError("Please choose a content file.");
+            return false;
+        }
+        return false;
+    }
 
 }
