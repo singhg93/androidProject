@@ -42,6 +42,7 @@ public class AddPostActivity extends AppCompatActivity {
     private final String FILE_TAG = "File Chooser Error";
 
 
+    // attributes
     private final String AWS_TAG = "AWS ERROR";
     private Toast _myToast;
     Button _chooseFileButton;
@@ -50,16 +51,25 @@ public class AddPostActivity extends AppCompatActivity {
     TextView _contentFilePath;
     FilePickerDialog _imageDialog;
     FilePickerDialog _fileDialog;
+    String _imageFile;
+    String _contentFile;
 
-    // just for testing
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_post);
 
+        // initialize the views and buttons
+        _chooseFileButton = findViewById(R.id.choose_image_file_button);
+        _imageFilePath = findViewById(R.id.image_file_path);
+        _contentFilePath = findViewById(R.id.content_file_path);
+        _chooseContentFileButton = findViewById(R.id.choose_content_file);
+
+        // start the aws trasfer service
         getApplicationContext().startService(new Intent(getApplicationContext(), TransferService.class));
 
+        // initialize the aws client
         AWSMobileClient.getInstance().initialize(getApplicationContext(), new Callback<UserStateDetails>() {
             @Override
             public void onResult(UserStateDetails userStateDetails) {
@@ -67,6 +77,7 @@ public class AddPostActivity extends AppCompatActivity {
             //    uploadWithTransferUtility("hello");
             }
 
+            // if there is an error
             @Override
             public void onError(Exception e) {
                 Log.e(AWS_TAG, "Initialization error.", e);
@@ -74,49 +85,70 @@ public class AddPostActivity extends AppCompatActivity {
         });
 
 
-        _chooseFileButton = findViewById(R.id.choose_image_file_button);
-        _imageFilePath = findViewById(R.id.image_file_path);
-        _contentFilePath = findViewById(R.id.content_file_path);
-        _chooseContentFileButton = findViewById(R.id.choose_content_file);
 
 
         // REFERENCE : https://github.com/Angads25/android-filepicker
 
-        DialogProperties properties = new DialogProperties();
+        // initialize the properties for the image choosing dialogbox
+        DialogProperties imageDialogProperties = new DialogProperties();
 
-        properties.selection_mode = DialogConfigs.SINGLE_MODE;
-        properties.selection_type = DialogConfigs.FILE_SELECT;
-        properties.root = new File(DialogConfigs.DEFAULT_DIR);
-        properties.error_dir = new File(DialogConfigs.DEFAULT_DIR);
-        properties.offset = new File(DialogConfigs.DEFAULT_DIR);
-        properties.extensions = null;
+        // set the dialog properties attributes
+        imageDialogProperties.selection_mode = DialogConfigs.SINGLE_MODE;
+        imageDialogProperties.selection_type = DialogConfigs.FILE_SELECT;
+        imageDialogProperties.root = new File(DialogConfigs.DEFAULT_DIR);
+        imageDialogProperties.error_dir = new File(DialogConfigs.DEFAULT_DIR);
+        imageDialogProperties.offset = new File(DialogConfigs.DEFAULT_DIR);
+        String[] imageExtensions = {"jpg","jpeg","png"};
+        imageDialogProperties.extensions = imageExtensions;
 
-        _imageDialog = new FilePickerDialog(AddPostActivity.this,properties);
+        // initialize a new dialog box for display image choosing
+        _imageDialog = new FilePickerDialog(AddPostActivity.this,imageDialogProperties);
         _imageDialog.setTitle("Select a Image File");
 
-        _fileDialog = new FilePickerDialog(AddPostActivity.this,properties);
+        // initialize the properties for the file choosing dialogbox
+        DialogProperties fileDialogProperties = new DialogProperties();
+
+        // set the dialog properties attributes
+        fileDialogProperties.selection_mode = DialogConfigs.SINGLE_MODE;
+        fileDialogProperties.selection_type = DialogConfigs.FILE_SELECT;
+        fileDialogProperties.root = new File(DialogConfigs.DEFAULT_DIR);
+        fileDialogProperties.error_dir = new File(DialogConfigs.DEFAULT_DIR);
+        fileDialogProperties.offset = new File(DialogConfigs.DEFAULT_DIR);
+        fileDialogProperties.extensions = null;
+
+
+        // initialize a new dialog box for choosing the content file
+        _fileDialog = new FilePickerDialog(AddPostActivity.this,fileDialogProperties);
         _fileDialog.setTitle("Select a Content File");
 
         _imageDialog.setDialogSelectionListener(new DialogSelectionListener() {
             @Override
             public void onSelectedFilePaths(String[] files) {
                 //files is the array of the paths of files selected by the Application User.
+                // go through all the files, since only single file selection is allowed,
+                // only one path will be present in the array
                 for (String filePath : files) {
                     Log.e("file Paths", filePath);
-                    _imageFilePath.setText(filePath);
-                    uploadWithTransferUtility(filePath);
+                    _imageFile = filePath;
+//                    uploadWithTransferUtility(filePath);
 
                 }
             }
         });
 
+
+        // when the file is selected
         _fileDialog.setDialogSelectionListener(new DialogSelectionListener() {
             @Override
             public void onSelectedFilePaths(String[] files) {
                 //files is the array of the paths of files selected by the Application User.
+                // go through all the files, since only single file selection is allowed,
+                // only one path will be present in the array
                 for (String filePath : files) {
                     Log.e("file Paths", filePath);
-                    _contentFilePath.setText(filePath);
+                    // store the file path in _contentFile variable
+                    _contentFile = filePath;
+//                    _contentFilePath.setText(filePath);
 
                 }
             }
