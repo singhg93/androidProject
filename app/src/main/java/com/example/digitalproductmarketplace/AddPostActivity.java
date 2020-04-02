@@ -4,8 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -14,6 +16,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.digitalproductmarketplace.boundary.AdvertisementDAO;
+import com.example.digitalproductmarketplace.boundary.ItemDAO;
+import com.example.digitalproductmarketplace.boundary.UserDAO;
+import com.example.digitalproductmarketplace.entity.AdvertisementPost;
+import com.example.digitalproductmarketplace.entity.Item;
+import com.example.digitalproductmarketplace.entity.User;
 import com.github.angads25.filepicker.controller.DialogSelectionListener;
 import com.github.angads25.filepicker.model.DialogConfigs;
 import com.github.angads25.filepicker.model.DialogProperties;
@@ -62,12 +70,26 @@ public class AddPostActivity extends AppCompatActivity {
     FilePickerDialog _fileDialog;
     String _imageFile;
     String _contentFile;
+    String _contentAmazonUniqueKey;
+    String _imageAmazonUniqueKey;
+    ItemDAO _itemDAO;
+    AdvertisementDAO _adDAO;
+    UserDAO _userDAO;
+    User _signedInUser;
+
+    boolean _imageFileUploaded;
+    boolean _contentFileUploaded;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_post);
+
+        // initialize the dao's
+        _itemDAO = new ItemDAO(getApplicationContext());
+        _adDAO = new AdvertisementDAO(getApplicationContext());
+        _userDAO = new UserDAO(getApplicationContext());
 
         // initialize the views and buttons
         _chooseFileButton = findViewById(R.id.choose_image_file_button);
@@ -78,6 +100,23 @@ public class AddPostActivity extends AppCompatActivity {
         _description = findViewById(R.id.description_input);
         _categories = findViewById(R.id.categories_input);
         _price = findViewById(R.id.price_input);
+        _imageFileUploaded = false;
+        _contentFileUploaded = false;
+
+        SharedPreferences sharedPref
+                = PreferenceManager.getDefaultSharedPreferences(this);
+        if (sharedPref.contains("EMAIL")){
+            String userEmail = sharedPref.getString("EMAIL","");
+            _signedInUser = _userDAO.getUser(userEmail);
+
+            if (_signedInUser == null ) {
+                Log.e("userEmail", _signedInUser.get_email());
+                startActivity(new Intent(AddPostActivity.this, LoginActivity.class));
+                finish();
+            }
+
+        }
+
 
         // start the aws trasfer service
         getApplicationContext().startService(new Intent(getApplicationContext(), TransferService.class));
@@ -145,6 +184,7 @@ public class AddPostActivity extends AppCompatActivity {
                 for (String filePath : files) {
                     Log.e("file Paths", filePath);
                     _imageFile = filePath;
+                    _imageFilePath.setText(filePath);
 //                    uploadWithTransferUtility(filePath);
 
                 }
@@ -163,7 +203,7 @@ public class AddPostActivity extends AppCompatActivity {
                     Log.e("file Paths", filePath);
                     // store the file path in _contentFile variable
                     _contentFile = filePath;
-//                    _contentFilePath.setText(filePath);
+                    _contentFilePath.setText(filePath);
 
                 }
             }
@@ -190,8 +230,38 @@ public class AddPostActivity extends AppCompatActivity {
         _createPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.e("Clicked", "I was clicked");
                 if (validateInput()) {
-                    // do something
+                    _imageAmazonUniqueKey  = getUniqueName(_imageFile);
+                    _contentAmazonUniqueKey = getUniqueName(_contentFile);
+                    uploadWithTransferUtility(_contentFile, _contentAmazonUniqueKey, "content");
+                    uploadWithTransferUtility( _imageFile, _imageAmazonUniqueKey, "images");
+                    if (_imageFileUploaded && _contentFileUploaded ) {
+
+                        // save the item in the database
+                        Item newItem = new Item();
+                        newItem.set_description(_description.getText().toString());
+                        newItem.set_catagory(_categories.getSelectedItem().toString());
+                        newItem.set_price(Double.parseDouble(_price.getText().toString()));
+                        newItem.set_picName(_imageAmazonUniqueKey);
+                        newItem.set_fileUrl(_contentAmazonUniqueKey);
+                        newItem.set_userId(_signedInUser.get_id());
+                        _itemDAO.insertItem(newItem);
+
+                        // create a post and save it in the database
+                        AdvertisementPost newPost = new AdvertisementPost();
+                        newPost.set_category(newItem.get_catagory());
+                        newPost.set_itemId(newItem.get_id());
+                        newPost.set_userId(_signedInUser.get_id());
+                        long currentTimeMillis = System.currentTimeMillis();
+                        newPost.set_datePostedEpoch(currentTimeMillis);
+                        newPost.set_lastUpdatedEpoch(currentTimeMillis);
+                        _adDAO.insertAdvertisement(newPost);
+
+                        startActivity( new Intent(AddPostActivity.this, ProfileActivity.class) );
+                        finish();
+
+                    }
                 }
             }
         });
@@ -221,8 +291,8 @@ public class AddPostActivity extends AppCompatActivity {
         }
     }
 
-//AWS_S3
-    public void uploadWithTransferUtility( String filePath ) {
+    //AWS_S3
+    public void uploadWithTransferUtility(String filePath, String uniqueKey, final String subFolder) {
 
         TransferUtility transferUtility =
                 TransferUtility.builder()
@@ -230,23 +300,23 @@ public class AddPostActivity extends AppCompatActivity {
                         .awsConfiguration(AWSMobileClient.getInstance().getConfiguration())
                         .s3Client(new AmazonS3Client(AWSMobileClient.getInstance()))
                         .build();
-// get file with unique name;
-        File file = new File(getApplicationContext().getFilesDir(), getUniqueName());
-        try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-            writer.append("Howdy World!");
-            writer.close();
-        }
-        catch(Exception e) {
-            Log.e(AWS_TAG, e.getMessage());
-        }
+
+//        File file = new File(getApplicationContext().getFilesDir(), getUniqueName());
+//        try {
+//            BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+//            writer.append("Howdy World!");
+//            writer.close();
+//        }
+//        catch(Exception e) {
+//            Log.e(AWS_TAG, e.getMessage());
+//        }
 
 
 
 
         TransferObserver uploadObserver =
                 transferUtility.upload(
-                        "public/sample.txt",
+                        "public/" + subFolder + "/" + uniqueKey,
                         new File(filePath));
 
         // Attach a listener to the observer to get state update and progress notifications
@@ -258,6 +328,17 @@ public class AddPostActivity extends AppCompatActivity {
             public void onStateChanged(int id, TransferState state) {
                 if (TransferState.COMPLETED == state) {
                     // Handle a completed upload.
+                    if (_myToast != null) {
+                        _myToast.cancel();
+                    } else {
+                        _myToast = Toast.makeText(AddPostActivity.this, "File Uploaded", Toast.LENGTH_SHORT);
+                        _myToast.show();
+                    }
+                    if (subFolder.equals("content")) {
+                        _contentFileUploaded = true;
+                    } else if (subFolder.equals("images")) {
+                        _imageFileUploaded = true;
+                    }
                 }
             }
 
@@ -272,7 +353,7 @@ public class AddPostActivity extends AppCompatActivity {
 
             @Override
             public void onError(int id, Exception ex) {
-                // Handle errors
+
             }
 
         });
@@ -290,14 +371,19 @@ public class AddPostActivity extends AppCompatActivity {
 
     // we are using date function because every time date with its time cannot be same;
 
-    private String getUniqueName() {
+    private String getUniqueName(String filePath) {
 
-        SimpleDateFormat everytimenew=new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
-        everytimenew.format(new Date());
+        String[] splitedFilePath = filePath.split("/");
+        String name = splitedFilePath[splitedFilePath.length - 1];
+        long millis = System.currentTimeMillis();
+//        SimpleDateFormat currentTime = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
+
+//        currentTime.format(new Date());
 
         //assemble filename
-
-        String  filename="file"+ everytimenew + ".txt";;
+        String millisString = String.valueOf(millis);
+        String  filename = millisString + name;
+        Log.e("Unique File Name", filename);
         return filename;
 
     }
@@ -381,7 +467,7 @@ public class AddPostActivity extends AppCompatActivity {
             _chooseContentFileButton.setError("Please choose a content file.");
             return false;
         }
-        return false;
+        return true;
     }
 
 }

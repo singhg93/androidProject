@@ -20,6 +20,9 @@ public class AdvertisementPost {
     private long _userId;
     private long _datePostedEpoch;
     private long _lastUpdatedEpoch;
+    private String _category;
+
+
 
     //default constructor
     public AdvertisementPost() {
@@ -58,13 +61,13 @@ public class AdvertisementPost {
     }
 
 
-    /**
-     *
-     * @param _lastUpdatedEpoch
-     */
-    public void set_lastUpdatedEpoch(long _lastUpdatedEpoch) {
-        this._lastUpdatedEpoch = _lastUpdatedEpoch;
-    }
+//    /**
+//     *
+//     * @param _lastUpdatedEpoch
+//     */
+//    public void set_lastUpdatedEpoch(long _lastUpdatedEpoch) {
+//        this._lastUpdatedEpoch = _lastUpdatedEpoch;
+//    }
 
     /**
      * @param @returns date on which advertisement was posted
@@ -103,7 +106,7 @@ public class AdvertisementPost {
     /**
      * @param _dateUpdatedEpoch updation date
      */
-    public void set_dateUpdatedEpoch(long _dateUpdatedEpoch) {
+    public void set_lastUpdatedEpoch(long _dateUpdatedEpoch) {
         this._lastUpdatedEpoch = _dateUpdatedEpoch;
     }
 
@@ -124,4 +127,11 @@ public class AdvertisementPost {
         this._userId = _userId;
     }
 
+    public String get_category() {
+        return _category;
+    }
+
+    public void set_category(String _category) {
+        this._category = _category;
+    }
 }

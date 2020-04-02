@@ -43,7 +43,8 @@ public class AdvertisementDAO implements AdvertisementPostDAOInterface {
                     DBHelper.ITEM_ID_FK,
                     DBHelper.USER_ID,
                     DBHelper.DATE_POSTED,
-                    DBHelper.DATE_UPDATED
+                    DBHelper.DATE_UPDATED,
+                    DBHelper.AD_CATEGORY
             };
 
             // filter the results to return users with the given email
@@ -73,13 +74,15 @@ public class AdvertisementDAO implements AdvertisementPostDAOInterface {
                 long adUserId= cursor.getLong(cursor.getColumnIndexOrThrow(DBHelper.USER_ID));
                 long datePosted = cursor.getLong(cursor.getColumnIndexOrThrow(DBHelper.DATE_POSTED));
                 long dateUpdated = cursor.getLong(cursor.getColumnIndexOrThrow(DBHelper.DATE_UPDATED));
+                String adCategory = cursor.getString(cursor.getColumnIndexOrThrow(DBHelper.AD_CATEGORY));
 
                 // create a user object from the database values
                 requestedAd.set_postId(postId);
                 requestedAd.set_itemId(adItemId);
                 requestedAd.set_userId(adUserId);
                 requestedAd.set_datePostedEpoch(datePosted);
-                requestedAd.set_dateUpdatedEpoch(dateUpdated);
+                requestedAd.set_lastUpdatedEpoch(dateUpdated);
+                requestedAd.set_category(adCategory);
 
                 // if there are no rows in the cursor, return null
             } else {
@@ -106,7 +109,8 @@ public class AdvertisementDAO implements AdvertisementPostDAOInterface {
                     DBHelper.ITEM_ID_FK,
                     DBHelper.USER_ID,
                     DBHelper.DATE_POSTED,
-                    DBHelper.DATE_UPDATED
+                    DBHelper.DATE_UPDATED,
+                    DBHelper.AD_CATEGORY
             };
 
 
@@ -130,13 +134,15 @@ public class AdvertisementDAO implements AdvertisementPostDAOInterface {
                 long adUserId = cursor.getLong(cursor.getColumnIndexOrThrow(DBHelper.USER_ID));
                 long datePosted = cursor.getLong(cursor.getColumnIndexOrThrow(DBHelper.DATE_POSTED));
                 long dateUpdated = cursor.getLong(cursor.getColumnIndexOrThrow(DBHelper.DATE_UPDATED));
+                String adCategory = cursor.getString(cursor.getColumnIndexOrThrow(DBHelper.AD_CATEGORY));
 
                 // create a user object from the database values
                 nextPost.set_postId(postId);
                 nextPost.set_itemId(adItemId);
                 nextPost.set_userId(adUserId);
                 nextPost.set_datePostedEpoch(datePosted);
-                nextPost.set_dateUpdatedEpoch(dateUpdated);
+                nextPost.set_lastUpdatedEpoch(dateUpdated);
+                nextPost.set_category(adCategory);
                 allPosts.add(nextPost);
 
             }
@@ -172,6 +178,7 @@ public class AdvertisementDAO implements AdvertisementPostDAOInterface {
             values.put(DBHelper.DATE_POSTED, newAd.get_datePostedEpoch());
             values.put(DBHelper.DATE_UPDATED, newAd.get_dateUpdatedEpoch());
             values.put(DBHelper.USER_ID, newAd.get_userId());
+            values.put(DBHelper.AD_CATEGORY, newAd.get_category());
 
             // get the row if of newly inserted user
             long newRowId = _db.insert(DBHelper.AD_POST_TABLE, null, values);
@@ -198,6 +205,7 @@ public class AdvertisementDAO implements AdvertisementPostDAOInterface {
             values.put(DBHelper.DATE_POSTED, updatedPost.get_datePostedEpoch());
             values.put(DBHelper.DATE_UPDATED, updatedPost.get_dateUpdatedEpoch());
             values.put(DBHelper.USER_ID, updatedPost.get_userId());
+            values.put(DBHelper.AD_CATEGORY, updatedPost.get_category());
 
 // Which row to update, based on the title
             String selection = DBHelper.AD_ID + " = ?";
@@ -248,10 +256,11 @@ public class AdvertisementDAO implements AdvertisementPostDAOInterface {
                     DBHelper.ITEM_ID_FK,
                     DBHelper.USER_ID,
                     DBHelper.DATE_POSTED,
-                    DBHelper.DATE_UPDATED
+                    DBHelper.DATE_UPDATED,
+                    DBHelper.AD_CATEGORY
             };
 
-            String selection = DBHelper.CATEGORY + " = ?";
+            String selection = DBHelper.AD_CATEGORY + " = ?";
 
             // Specify arguments in placeholder order.
             String[] selectionArgs = {category};
@@ -277,13 +286,16 @@ public class AdvertisementDAO implements AdvertisementPostDAOInterface {
                 long adUserId = cursor.getLong(cursor.getColumnIndexOrThrow(DBHelper.USER_ID));
                 long datePosted = cursor.getLong(cursor.getColumnIndexOrThrow(DBHelper.DATE_POSTED));
                 long dateUpdated = cursor.getLong(cursor.getColumnIndexOrThrow(DBHelper.DATE_UPDATED));
+                String adCategory = cursor.getString(cursor.getColumnIndexOrThrow(DBHelper.AD_CATEGORY));
+
 
                 // create a user object from the database values
                 nextPost.set_postId(postId);
                 nextPost.set_itemId(adItemId);
                 nextPost.set_userId(adUserId);
                 nextPost.set_datePostedEpoch(datePosted);
-                nextPost.set_dateUpdatedEpoch(dateUpdated);
+                nextPost.set_lastUpdatedEpoch(dateUpdated);
+                nextPost.set_category(adCategory);
                 postsForCategories.add(nextPost);
             }
 

@@ -33,6 +33,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String ITEM_ID_FK = "itemId";
     public static final String DATE_POSTED = "datePosted";
     public static final String DATE_UPDATED = "lastUpdated";
+    public static final String AD_CATEGORY = "category";
 
 
     public DBHelper( Context context) {
@@ -78,9 +79,9 @@ public class DBHelper extends SQLiteOpenHelper {
                 + AD_ID + " INTEGER PRIMARY KEY, "
                 + ITEM_ID_FK + " INTEGER NOT NULL, "
                 + USER_ID + " INTEGER NOT NULL, "
-                + PRICE + " REAL NOT NULL, "
                 + DATE_POSTED +" INTEGER NOT NULL, "
-                + DATE_UPDATED + " INTEGER NOT NULL,"
+                + DATE_UPDATED + " INTEGER NOT NULL, "
+                + AD_CATEGORY + " TEXT NOT NULL, "
                 + "FOREIGN KEY (" + USER_ID + ") REFERENCES "
                 + USERS_TABLE_NAME+ "(id),"
                 + "FOREIGN KEY (" + ITEM_ID_FK + ") REFERENCES "
