@@ -25,7 +25,7 @@
             android:enabled="true" />
 
         <activity android:name=".AddPostActivity" />
-        <activity android:name=".Categories"></activity>
+        <activity android:name=".Categories" />
         <activity android:name=".RegistrationActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".ProfileActivity" />

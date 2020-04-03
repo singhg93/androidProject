@@ -15,14 +15,10 @@ public class Categories extends AppCompatActivity {
     Button _videoCardBtn;
     Button _ebookCardBtn;
     Button _grapicCardBtn;
-
-    CardView _audioCard;
-    CardView _videoCard;
-    CardView _ebookCard;
-    CardView _graphicCard;
+    Button _goBack;
 
     Intent itemIntent;
-    Bundle itemBundle = new Bundle();
+    Bundle itemBundle;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,41 +28,55 @@ public class Categories extends AppCompatActivity {
         _videoCardBtn = findViewById(R.id.ButtonVideo);
         _ebookCardBtn = findViewById(R.id.ButtonEbooks);
         _grapicCardBtn = findViewById(R.id.ButtonGraphics);
+        _goBack = findViewById(R.id.profile_category_button);
+        itemBundle = new Bundle();
 
-
+        itemIntent = new Intent(Categories.this, ItemsActivity.class);
         _audioCardBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                itemBundle.putString("CATEGORY","_audioCard");
-                startActivity();
+                itemBundle.putString("CATEGORY","audio");
+                itemIntent.putExtras(itemBundle);
+                startActivity(itemIntent);
             }
         });
         _videoCardBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                itemBundle.putString("CATEGORY","_videoCard");
-                startActivity();
+                itemBundle.putString("CATEGORY","video");
+                itemIntent.putExtras(itemBundle);
+                startActivity(itemIntent);
             }
         });
         _ebookCardBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                itemBundle.putString("CATEGORY","_ebookCard");
-                startActivity();
+                itemBundle.putString("CATEGORY","ebooks");
+                itemIntent.putExtras(itemBundle);
+                startActivity(itemIntent);
             }
         });
         _grapicCardBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                itemBundle.putString("CATEGORY","_graphicCard");
-                startActivity();
+                itemBundle.putString("CATEGORY","graphicDesign");
+                itemIntent.putExtras(itemBundle);
+                startActivity(itemIntent);
+            }
+        });
+
+        _goBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent goBackProfile = new Intent(Categories.this, ProfileActivity.class);
+                startActivity(goBackProfile);
             }
         });
 
     }
 
     private void startActivity(){
-        itemIntent = new Intent(Categories.this, ItemsActivity.class);
+        itemIntent = new Intent(Categories.this, ItemsActivity.class );
         itemIntent.putExtras(itemBundle);
         startActivity(itemIntent);
     }

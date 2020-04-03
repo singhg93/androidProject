@@ -31,6 +31,8 @@ public class ProfileActivity extends AppCompatActivity {
     GoogleSignInClient _myGoogleSignOutClient;
     GoogleSignInOptions _gso;
     Button _addPostButton;
+    Button _browseCategories;
+    Button _browseAllItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +45,8 @@ public class ProfileActivity extends AppCompatActivity {
         _email = findViewById(R.id.profileEmail);
         _logOut = findViewById(R.id.logOutBtn);
         _addPostButton = findViewById(R.id.add_post_button);
+        _browseCategories = findViewById(R.id.list_categories);
+        _browseAllItems = findViewById(R.id.list_all_items);
 
 
         _gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -115,6 +119,22 @@ public class ProfileActivity extends AppCompatActivity {
 
             _email.setText(_signedInUser.get_email());
         }
+
+        _browseCategories.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent categoriesActivityIntent = new Intent(ProfileActivity.this, Categories.class);
+                startActivity(categoriesActivityIntent);
+            }
+        });
+
+        _browseAllItems.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent allItemsIntent = new Intent(ProfileActivity.this, ItemsActivity.class);
+                startActivity(allItemsIntent);
+            }
+        });
     }
 
     //signOut() method clears the connected google account to the application
@@ -130,6 +150,8 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
     }
+
+    // revoke the access from the
     private void revokeAccess(){
         _myGoogleSignOutClient.revokeAccess()
                 .addOnCompleteListener(this, new OnCompleteListener<Void>() {
