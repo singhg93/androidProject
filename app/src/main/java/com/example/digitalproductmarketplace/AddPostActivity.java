@@ -230,38 +230,13 @@ public class AddPostActivity extends AppCompatActivity {
         _createPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e("Clicked", "I was clicked");
+//                Log.e("Clicked", "I was clicked");
                 if (validateInput()) {
                     _imageAmazonUniqueKey  = getUniqueName(_imageFile);
                     _contentAmazonUniqueKey = getUniqueName(_contentFile);
                     uploadWithTransferUtility(_contentFile, _contentAmazonUniqueKey, "content");
-                    uploadWithTransferUtility( _imageFile, _imageAmazonUniqueKey, "images");
-                    if (_imageFileUploaded && _contentFileUploaded ) {
+                    uploadWithTransferUtility(_imageFile, _imageAmazonUniqueKey, "images");
 
-                        // save the item in the database
-                        Item newItem = new Item();
-                        newItem.set_description(_description.getText().toString());
-                        newItem.set_catagory(_categories.getSelectedItem().toString());
-                        newItem.set_price(Double.parseDouble(_price.getText().toString()));
-                        newItem.set_picName(_imageAmazonUniqueKey);
-                        newItem.set_fileUrl(_contentAmazonUniqueKey);
-                        newItem.set_userId(_signedInUser.get_id());
-                        _itemDAO.insertItem(newItem);
-
-                        // create a post and save it in the database
-                        AdvertisementPost newPost = new AdvertisementPost();
-                        newPost.set_category(newItem.get_catagory());
-                        newPost.set_itemId(newItem.get_id());
-                        newPost.set_userId(_signedInUser.get_id());
-                        long currentTimeMillis = System.currentTimeMillis();
-                        newPost.set_datePostedEpoch(currentTimeMillis);
-                        newPost.set_lastUpdatedEpoch(currentTimeMillis);
-                        _adDAO.insertAdvertisement(newPost);
-
-                        startActivity( new Intent(AddPostActivity.this, ProfileActivity.class) );
-                        finish();
-
-                    }
                 }
             }
         });
@@ -339,6 +314,29 @@ public class AddPostActivity extends AppCompatActivity {
                     } else if (subFolder.equals("images")) {
                         _imageFileUploaded = true;
                     }
+                    if (_contentFileUploaded  && _imageFileUploaded) {
+
+
+
+                            // save the item in the database
+                            Item newItem = new Item();
+                            newItem.set_description(_description.getText().toString());
+                            newItem.set_catagory(_categories.getSelectedItem().toString().toLowerCase());
+                            newItem.set_price(Double.parseDouble(_price.getText().toString()));
+                            newItem.set_picName(_imageAmazonUniqueKey);
+                            newItem.set_fileUrl(_contentAmazonUniqueKey);
+                            newItem.set_userId(_signedInUser.get_id());
+                            long currentTimeMillis = System.currentTimeMillis();
+                            newItem.set_lastUpdatedEpoch(currentTimeMillis);
+                            newItem.set_datePostedEpoch(currentTimeMillis);
+                            _itemDAO.insertItem(newItem);
+
+
+                            startActivity(new Intent(AddPostActivity.this, ProfileActivity.class));
+                            finish();
+
+                    }
+
                 }
             }
 
@@ -353,7 +351,12 @@ public class AddPostActivity extends AppCompatActivity {
 
             @Override
             public void onError(int id, Exception ex) {
-
+                if (_myToast != null ) {
+                    _myToast.cancel();
+                } else {
+                    _myToast = Toast.makeText(AddPostActivity.this, "There was an error uploading the file", Toast.LENGTH_LONG);
+                    _myToast.show();
+                }
             }
 
         });
