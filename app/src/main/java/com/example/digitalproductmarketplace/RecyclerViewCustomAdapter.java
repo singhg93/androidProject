@@ -1,5 +1,7 @@
 package com.example.digitalproductmarketplace;
 
+import android.content.Context;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,30 +11,31 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.digitalproductmarketplace.boundary.ItemDAO;
-import com.example.digitalproductmarketplace.entity.AdvertisementPost;
 import com.example.digitalproductmarketplace.entity.Item;
+import com.squareup.picasso.Picasso;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class RecyclerViewCustomAdapter extends RecyclerView.Adapter<RecyclerViewCustomAdapter.myViewHolder> {
 
     //private List<Item> myItemInfo;
-    private ArrayList<AdvertisementPost> advertisementPosts;
+    private ArrayList<Item> items;
+    private Context activityContext;
+    private View view;
+//    ItemDAO itemDAO;
 
-    ItemDAO itemDAO;
+    public RecyclerViewCustomAdapter(ArrayList<Item> items, Context context) {
+        this.items = items;
+        this.activityContext = context;
 
-    public RecyclerViewCustomAdapter(ArrayList<AdvertisementPost> advertisementPosts) {
-        this.advertisementPosts = advertisementPosts;
+
     }
 
     @NonNull
     @Override
     public myViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        itemDAO = new ItemDAO(parent.getContext());
-
-        View view;
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         view = inflater.inflate(R.layout.layout_items, parent, false);
         return new myViewHolder(view);
@@ -40,28 +43,46 @@ public class RecyclerViewCustomAdapter extends RecyclerView.Adapter<RecyclerView
 
     @Override
     public void onBindViewHolder(@NonNull myViewHolder holder, int position) {
-        AdvertisementPost advertisementPost = advertisementPosts.get(position);
-        Item currentItem = itemDAO.getItem(advertisementPost.get_itemId());
-        holder.itemTxt.setText(currentItem.get_catagory());
+        Item currentItem = items.get(position);
+
+        DecimalFormat dc = new DecimalFormat("$#.##");
+        holder.itemPrice.setText(dc.format(currentItem.get_price()));
         holder.itemDescriptionTxt.setText(currentItem.get_description());
-//        holder.itemImage.setImageResource(itemPic.get(position));
+        holder.itemCategory.setText(currentItem.get_catagory().toUpperCase());
+//        Picasso.get().
+//                load("https://orangebucket111948-android.s3.amazonaws.com/public/images/" + currentItem.get_picName()).
+//                into(holder.itemImage);
+        Picasso.get().
+                load("https://robohash.org/" + currentItem.get_picName() + "?set=set3").
+                into(holder.itemImage);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickSub
+            }
+        });
+
     }
 
     @Override
     public int getItemCount() {
-        return advertisementPosts.size();
+        return this.items.size();
     }
 
     public static class myViewHolder extends RecyclerView.ViewHolder{
-        TextView itemTxt;
+        TextView itemPrice;
         TextView itemDescriptionTxt;
         ImageView itemImage;
+        TextView itemCategory;
 
         public myViewHolder(@NonNull View itemView) {
             super(itemView);
-            itemTxt = itemView.findViewById(R.id.item_Txt);
-            itemDescriptionTxt = itemView.findViewById(R.id.item_Description_Txt);
+            itemPrice = itemView.findViewById(R.id.item_price);
+            itemDescriptionTxt = itemView.findViewById(R.id.item_description_txt);
             itemImage = itemView.findViewById(R.id.item_Image);
+            itemCategory = itemView.findViewById(R.id.item_category);
+
         }
+
     }
 }
