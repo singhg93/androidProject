@@ -61,6 +61,8 @@ public class DBHelper extends SQLiteOpenHelper {
                 + CATEGORY +" TEXT NOT NULL, "
                 + USER_ID + " INTEGER NOT NULL,"
                 + PICTURE + " TEXT NOT NULL,"
+                + DATE_POSTED +" INTEGER NOT NULL, "
+                + DATE_UPDATED + " INTEGER NOT NULL, "
                 + FILE_URL + " TEXT NOT NULL,"
                 + "FOREIGN KEY (" + USER_ID + ") REFERENCES "
                 + USERS_TABLE_NAME + "(id)" +

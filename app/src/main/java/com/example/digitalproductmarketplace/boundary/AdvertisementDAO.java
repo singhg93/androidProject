@@ -125,7 +125,7 @@ public class AdvertisementDAO implements AdvertisementPostDAOInterface {
                     DBHelper.DATE_UPDATED  // sort by last updated date
             );
 
-            // instantiate a new user
+            // instantiate a new post
             AdvertisementPost nextPost = new AdvertisementPost();
 
             while (cursor.moveToNext()) {

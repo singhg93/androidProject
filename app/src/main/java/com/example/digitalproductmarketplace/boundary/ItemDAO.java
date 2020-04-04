@@ -54,6 +54,8 @@ public class ItemDAO implements ItemDAOInterface {
                     DBHelper.CATEGORY,
                     DBHelper.USER_ID,
                     DBHelper.PICTURE,
+                    DBHelper.DATE_POSTED,
+                    DBHelper.DATE_UPDATED,
                     DBHelper.FILE_URL
             };
 
@@ -86,8 +88,10 @@ public class ItemDAO implements ItemDAOInterface {
                 long itemUserId = cursor.getLong(cursor.getColumnIndexOrThrow(DBHelper.USER_ID));
                 String itemPicture = cursor.getString(cursor.getColumnIndexOrThrow(DBHelper.PICTURE));
                 String itemFile = cursor.getString(cursor.getColumnIndexOrThrow(DBHelper.FILE_URL));
+                long datePosted = cursor.getLong(cursor.getColumnIndexOrThrow(DBHelper.DATE_POSTED));
+                long dateUpdated = cursor.getLong(cursor.getColumnIndexOrThrow(DBHelper.DATE_UPDATED));
 
-                // create a user object from the database values
+                // create a items object from the database values
                 requestedItem.set_id(id);
                 requestedItem.set_description(itemDescription);
                 requestedItem.set_price(itemPrice);
@@ -95,6 +99,8 @@ public class ItemDAO implements ItemDAOInterface {
                 requestedItem.set_userId(itemUserId);
                 requestedItem.set_picName(itemPicture);
                 requestedItem.set_fileUrl(itemFile);
+                requestedItem.set_datePostedEpoch(datePosted);
+                requestedItem.set_lastUpdatedEpoch(dateUpdated);
 
                 // if there are no rows in the curson, return null
             } else {
@@ -123,6 +129,8 @@ public class ItemDAO implements ItemDAOInterface {
                     DBHelper.CATEGORY,
                     DBHelper.USER_ID,
                     DBHelper.PICTURE,
+                    DBHelper.DATE_POSTED,
+                    DBHelper.DATE_UPDATED,
                     DBHelper.FILE_URL
             };
 
@@ -139,9 +147,10 @@ public class ItemDAO implements ItemDAOInterface {
             );
 
             // instantiate a new user
-            Item nextItem = new Item();
 
             while (cursor.moveToNext()) {
+                Item nextItem = new Item();
+
                 long id = cursor.getLong(cursor.getColumnIndexOrThrow(DBHelper.ID));
                 String itemDescription = cursor.getString(cursor.getColumnIndexOrThrow(DBHelper.DESCRIPTION));
                 double itemPrice = cursor.getDouble(cursor.getColumnIndexOrThrow(DBHelper.PRICE));
@@ -149,6 +158,8 @@ public class ItemDAO implements ItemDAOInterface {
                 long itemUserId = cursor.getLong(cursor.getColumnIndexOrThrow(DBHelper.USER_ID));
                 String itemPicture = cursor.getString(cursor.getColumnIndexOrThrow(DBHelper.PICTURE));
                 String itemFile = cursor.getString(cursor.getColumnIndexOrThrow(DBHelper.FILE_URL));
+                long datePosted = cursor.getLong(cursor.getColumnIndexOrThrow(DBHelper.DATE_POSTED));
+                long dateUpdated = cursor.getLong(cursor.getColumnIndexOrThrow(DBHelper.DATE_UPDATED));
 
                 nextItem.set_id(id);
                 nextItem.set_description(itemDescription);
@@ -157,6 +168,11 @@ public class ItemDAO implements ItemDAOInterface {
                 nextItem.set_userId(itemUserId);
                 nextItem.set_picName(itemPicture);
                 nextItem.set_fileUrl(itemFile);
+                nextItem.set_datePostedEpoch(datePosted);
+                nextItem.set_lastUpdatedEpoch(dateUpdated);
+
+                allItems.add(nextItem);
+
             }
 
             // return the user
@@ -187,6 +203,8 @@ public class ItemDAO implements ItemDAOInterface {
             values.put(DBHelper.USER_ID, newItem.get_userId());
             values.put(DBHelper.PICTURE, newItem.get_picName());
             values.put(DBHelper.FILE_URL, newItem.get_fileUrl());
+            values.put(DBHelper.DATE_POSTED, newItem.get_datePostedEpoch());
+            values.put(DBHelper.DATE_UPDATED, newItem.get_dateUpdatedEpoch());
 
             // get the row if of newly inserted user
             long newRowId = _db.insert(DBHelper.ITEMS_TABLE_NAME, null, values);
@@ -213,6 +231,8 @@ public class ItemDAO implements ItemDAOInterface {
             values.put(DBHelper.USER_ID, updatedItem.get_userId());
             values.put(DBHelper.PICTURE, updatedItem.get_picName());
             values.put(DBHelper.FILE_URL, updatedItem.get_fileUrl());
+            values.put(DBHelper.DATE_POSTED, updatedItem.get_datePostedEpoch());
+            values.put(DBHelper.DATE_UPDATED, updatedItem.get_dateUpdatedEpoch());
 
 // Which row to update, based on the title
             String selection = DBHelper.ID + " = ?";
@@ -247,6 +267,78 @@ public class ItemDAO implements ItemDAOInterface {
         } catch ( Exception ex ) {
             Log.e(LOG_TAG, ex.getMessage());
             return 0;
+        }
+    }
+
+    public ArrayList<Item> getItemsForCategory(String category) {
+        ArrayList<Item> itemsForCategory = new ArrayList<>();
+        try {
+            _db = _dbHelper.getReadableDatabase();
+
+            // list all the columns that should be returned from the database
+            String[] projection = {
+                    DBHelper.ITEM_ID,
+                    DBHelper.DESCRIPTION,
+                    DBHelper.PRICE,
+                    DBHelper.CATEGORY,
+                    DBHelper.USER_ID,
+                    DBHelper.PICTURE,
+                    DBHelper.DATE_POSTED,
+                    DBHelper.DATE_UPDATED,
+                    DBHelper.FILE_URL
+            };
+
+            String selection = DBHelper.CATEGORY + " = ?";
+
+            // Specify arguments in placeholder order.
+            String[] selectionArgs = {category};
+
+
+            // get the results
+            Cursor cursor = _db.query(
+                    DBHelper.ITEMS_TABLE_NAME,  // The table to query
+                    projection, // the array of columns to return
+                    selection,  // don't filter
+                    selectionArgs, // no filter arguments for where clause
+                    null,   // don't group the results
+                    null,   // don't filter by row groups
+                    DBHelper.DATE_UPDATED  // sort by last updated date
+            );
+
+            // instantiate a new user
+
+            while (cursor.moveToNext()) {
+                Item nextItem = new Item();
+
+                long id = cursor.getLong(cursor.getColumnIndexOrThrow(DBHelper.ID));
+                String itemDescription = cursor.getString(cursor.getColumnIndexOrThrow(DBHelper.DESCRIPTION));
+                double itemPrice = cursor.getDouble(cursor.getColumnIndexOrThrow(DBHelper.PRICE));
+                String itemCategory = cursor.getString(cursor.getColumnIndexOrThrow(DBHelper.CATEGORY));
+                long itemUserId = cursor.getLong(cursor.getColumnIndexOrThrow(DBHelper.USER_ID));
+                String itemPicture = cursor.getString(cursor.getColumnIndexOrThrow(DBHelper.PICTURE));
+                String itemFile = cursor.getString(cursor.getColumnIndexOrThrow(DBHelper.FILE_URL));
+                long datePosted = cursor.getLong(cursor.getColumnIndexOrThrow(DBHelper.DATE_POSTED));
+                long dateUpdated = cursor.getLong(cursor.getColumnIndexOrThrow(DBHelper.DATE_UPDATED));
+
+                // create a user object from the database values
+
+                nextItem.set_id(id);
+                nextItem.set_description(itemDescription);
+                nextItem.set_price(itemPrice);
+                nextItem.set_catagory(itemCategory);
+                nextItem.set_userId(itemUserId);
+                nextItem.set_picName(itemPicture);
+                nextItem.set_fileUrl(itemFile);
+                nextItem.set_datePostedEpoch(datePosted);
+                nextItem.set_lastUpdatedEpoch(dateUpdated);
+                itemsForCategory.add(nextItem);
+            }
+
+            // return the user
+            return itemsForCategory;
+        } catch (Exception ex) {
+            Log.e(LOG_TAG, ex.getMessage());
+            return null;
         }
     }
 }
