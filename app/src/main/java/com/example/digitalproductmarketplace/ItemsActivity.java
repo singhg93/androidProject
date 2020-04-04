@@ -6,8 +6,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import com.example.digitalproductmarketplace.boundary.AdvertisementDAO;
 import com.example.digitalproductmarketplace.boundary.ItemDAO;
@@ -16,19 +18,20 @@ import com.example.digitalproductmarketplace.entity.Item;
 
 import java.util.ArrayList;
 
-public class ItemsActivity extends AppCompatActivity {
+public class ItemsActivity extends AppCompatActivity implements RecyclerViewCustomAdapter.OnItemClicked {
 
     RecyclerView recyclerViewData;
     ItemDAO itemDAO;
     String category;
     ArrayList<Item> items;
-
+    Button goBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_items);
 
+        goBack = findViewById(R.id.go_to_categories);
         // get the intent and the bundle
         Intent thisIntent = getIntent();
         Bundle myBundle = thisIntent.getExtras();
@@ -38,7 +41,7 @@ public class ItemsActivity extends AppCompatActivity {
         // if the intent and the bundle are null
         if ( thisIntent != null && myBundle != null ){
             // get the string
-            category = myBundle.getString("CATEGORY", null);
+            category = myBundle.getString("CATEGORY", null );
         }
 
         // initialize the advertisement dao
@@ -62,17 +65,31 @@ public class ItemsActivity extends AppCompatActivity {
         // set the a layoutManager
         recyclerViewData.setLayoutManager(new LinearLayoutManager(this));
 
-        // set the adapte
+        // set the adapter
         recyclerViewData.setAdapter(myRecyclerAdapter);
 
+        // bind the on click
+        myRecyclerAdapter.setOnClick(ItemsActivity.this);
 
+        goBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent goToCategoriesIntent = new Intent(ItemsActivity.this, Categories.class);
+                startActivity(goToCategoriesIntent);
+            }
+        });
 
+    }
 
-//        recyclerViewData.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                startActivity(new Intent(ItemsActivity.this, MainActivity.class));
-//            }
-//        });
+    @Override
+    public void onItemClick(long position) {
+
+        Log.e("Recycler Clicked", String.valueOf(position));
+        Bundle myBundle = new Bundle();
+        myBundle.putLong("ITEM_ID", position);
+        Intent itemDetailIntent = new Intent(ItemsActivity.this, MainActivity.class);
+        itemDetailIntent.putExtras(myBundle);
+        startActivity(itemDetailIntent);
+
     }
 }

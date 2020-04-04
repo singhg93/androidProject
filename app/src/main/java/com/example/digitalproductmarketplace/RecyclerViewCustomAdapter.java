@@ -23,13 +23,17 @@ public class RecyclerViewCustomAdapter extends RecyclerView.Adapter<RecyclerView
     private ArrayList<Item> items;
     private Context activityContext;
     private View view;
-//    ItemDAO itemDAO;
+    private OnItemClicked onClick;
+
+
+    // to set the click listener
+    public interface OnItemClicked {
+        void onItemClick(long position);
+    }
 
     public RecyclerViewCustomAdapter(ArrayList<Item> items, Context context) {
         this.items = items;
         this.activityContext = context;
-
-
     }
 
     @NonNull
@@ -42,8 +46,8 @@ public class RecyclerViewCustomAdapter extends RecyclerView.Adapter<RecyclerView
     }
 
     @Override
-    public void onBindViewHolder(@NonNull myViewHolder holder, int position) {
-        Item currentItem = items.get(position);
+    public void onBindViewHolder(@NonNull myViewHolder holder, final int position) {
+        final Item currentItem = items.get(position);
 
         DecimalFormat dc = new DecimalFormat("$#.##");
         holder.itemPrice.setText(dc.format(currentItem.get_price()));
@@ -55,13 +59,13 @@ public class RecyclerViewCustomAdapter extends RecyclerView.Adapter<RecyclerView
         Picasso.get().
                 load("https://robohash.org/" + currentItem.get_picName() + "?set=set3").
                 into(holder.itemImage);
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+
+        holder.itemDescriptionTxt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                onClickSub
+                onClick.onItemClick(currentItem.get_id());
             }
         });
-
     }
 
     @Override
@@ -84,5 +88,9 @@ public class RecyclerViewCustomAdapter extends RecyclerView.Adapter<RecyclerView
 
         }
 
+    }
+
+    public void setOnClick(OnItemClicked onClick) {
+        this.onClick = onClick;
     }
 }
