@@ -47,6 +47,8 @@
     <string name="list_categories">Browse Categories</string>
     <string name="list_items">Browse all Items</string>
     <string name="go_back">Go Back</string>
+    <string name="buy">Buy Now</string>
+    <string name="itemdesc">Image Description</string>
 </resources>
 
 
