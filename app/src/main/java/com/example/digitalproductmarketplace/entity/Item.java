@@ -1,5 +1,10 @@
 package com.example.digitalproductmarketplace.entity;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 /**
  * This class is for storing the details of an Item of a post and the attributes are
  * description, price and _catagory
@@ -14,6 +19,8 @@ public class Item {
     private long _userId;
     private String _picName;
     private String _fileUrl;
+    private long _datePostedEpoch;
+    private long _lastUpdatedEpoch;
 
 
 
@@ -125,5 +132,46 @@ public class Item {
      */
     public void set_fileUrl(String _fileUrl) {
         this._fileUrl = _fileUrl;
+    }
+
+    /**
+     * @param @returns date on which advertisement was posted
+     */
+    public long get_datePostedEpoch() {
+        return _datePostedEpoch;
+    }
+
+    public String get_datePosted() {
+        Date lastUpdated = new Date(_datePostedEpoch);
+        DateFormat simpleDateFormate = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.US);
+        return (simpleDateFormate.format(lastUpdated));
+    }
+
+    /**
+     * @param _datePostedEpoch on which advertisement was posted
+     */
+    public void set_datePostedEpoch(long _datePostedEpoch) {
+        this._datePostedEpoch = _datePostedEpoch;
+    }
+
+    /**
+     * @param @returns the last updated date
+     */
+    public long get_dateUpdatedEpoch() {
+        return _lastUpdatedEpoch;
+    }
+
+
+    public String get_dateUpdated() {
+        Date lastUpdated = new Date(_lastUpdatedEpoch);
+        DateFormat simpleDateFormate = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.US);
+        return (simpleDateFormate.format(lastUpdated));
+    }
+
+    /**
+     * @param _dateUpdatedEpoch updation date
+     */
+    public void set_lastUpdatedEpoch(long _dateUpdatedEpoch) {
+        this._lastUpdatedEpoch = _dateUpdatedEpoch;
     }
 }
