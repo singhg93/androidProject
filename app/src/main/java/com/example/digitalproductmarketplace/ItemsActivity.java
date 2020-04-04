@@ -87,7 +87,7 @@ public class ItemsActivity extends AppCompatActivity implements RecyclerViewCust
         Log.e("Recycler Clicked", String.valueOf(position));
         Bundle myBundle = new Bundle();
         myBundle.putLong("ITEM_ID", position);
-        Intent itemDetailIntent = new Intent(ItemsActivity.this, MainActivity.class);
+        Intent itemDetailIntent = new Intent(ItemsActivity.this, ItemDescription.class);
         itemDetailIntent.putExtras(myBundle);
         startActivity(itemDetailIntent);
 
