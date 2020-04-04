@@ -152,7 +152,7 @@ public class AddPostActivity extends AppCompatActivity {
         imageDialogProperties.root = new File(DialogConfigs.DEFAULT_DIR);
         imageDialogProperties.error_dir = new File(DialogConfigs.DEFAULT_DIR);
         imageDialogProperties.offset = new File(DialogConfigs.DEFAULT_DIR);
-        String[] imageExtensions = {"jpg","jpeg","png"};
+        String[] imageExtensions = {"jpg","jpeg"};
         imageDialogProperties.extensions = imageExtensions;
 
         // initialize a new dialog box for display image choosing
@@ -394,54 +394,54 @@ public class AddPostActivity extends AppCompatActivity {
      //download file from bucket list
 
     
-     private void downloadWithTransferUtility() {
+    private void downloadWithTransferUtility() {
 
-     TransferUtility transferUtility =
-             TransferUtility.builder()
-                     .context(getApplicationContext())
-                     .awsConfiguration(AWSMobileClient.getInstance().getConfiguration())
-                     .s3Client(new AmazonS3Client(AWSMobileClient.getInstance()))
-                     .build();
+         TransferUtility transferUtility =
+                 TransferUtility.builder()
+                         .context(getApplicationContext())
+                         .awsConfiguration(AWSMobileClient.getInstance().getConfiguration())
+                         .s3Client(new AmazonS3Client(AWSMobileClient.getInstance()))
+                         .build();
 
-     TransferObserver downloadObserver =
-             transferUtility.download(
-                     "public/sample.txt",
-                     new File(getApplicationContext().getFilesDir(), "download.txt"));
+         TransferObserver downloadObserver =
+                 transferUtility.download(
+                         "public/sample.txt",
+                         new File(getApplicationContext().getFilesDir(), "download.txt"));
 
-     // Attach a listener to the observer to get state update and progress notifications
-     downloadObserver.setTransferListener(new TransferListener() {
+         // Attach a listener to the observer to get state update and progress notifications
+         downloadObserver.setTransferListener(new TransferListener() {
 
-         @Override
-         public void onStateChanged(int id, TransferState state) {
-             if (TransferState.COMPLETED == state) {
-                 // Handle a completed upload.
+             @Override
+             public void onStateChanged(int id, TransferState state) {
+                 if (TransferState.COMPLETED == state) {
+                     // Handle a completed upload.
+                 }
              }
+
+             @Override
+             public void onProgressChanged(int id, long bytesCurrent, long bytesTotal) {
+                 float percentDonef = ((float)bytesCurrent/(float)bytesTotal) * 100;
+                 int percentDone = (int)percentDonef;
+
+                 Log.d("Your Activity", "   ID:" + id + "   bytesCurrent: " + bytesCurrent + "   bytesTotal: " + bytesTotal + " " + percentDone + "%");
+             }
+
+             @Override
+             public void onError(int id, Exception ex) {
+                 // Handle errors
+             }
+
+         });
+
+         // If you prefer to poll for the data, instead of attaching a
+         // listener, check for the state and progress in the observer.
+         if (TransferState.COMPLETED == downloadObserver.getState()) {
+             // Handle a completed upload.
          }
 
-         @Override
-         public void onProgressChanged(int id, long bytesCurrent, long bytesTotal) {
-             float percentDonef = ((float)bytesCurrent/(float)bytesTotal) * 100;
-             int percentDone = (int)percentDonef;
-
-             Log.d("Your Activity", "   ID:" + id + "   bytesCurrent: " + bytesCurrent + "   bytesTotal: " + bytesTotal + " " + percentDone + "%");
-         }
-
-         @Override
-         public void onError(int id, Exception ex) {
-             // Handle errors
-         }
-
-     });
-
-     // If you prefer to poll for the data, instead of attaching a
-     // listener, check for the state and progress in the observer.
-     if (TransferState.COMPLETED == downloadObserver.getState()) {
-         // Handle a completed upload.
+         Log.d("Your Activity", "Bytes Transferred: " + downloadObserver.getBytesTransferred());
+         Log.d("Your Activity", "Bytes Total: " + downloadObserver.getBytesTotal());
      }
-
-     Log.d("Your Activity", "Bytes Transferred: " + downloadObserver.getBytesTransferred());
-     Log.d("Your Activity", "Bytes Total: " + downloadObserver.getBytesTotal());
- }
 
 
     private boolean validateInput() {
