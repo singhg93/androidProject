@@ -59,4 +59,10 @@ dependencies {
 
     // picasso for image download
     implementation 'com.squareup.picasso:picasso:2.71828'
+
+
+
+
+
+
 }
