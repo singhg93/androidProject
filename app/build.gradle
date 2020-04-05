@@ -7,7 +7,7 @@ android {
     buildToolsVersion "29.0.2"
     defaultConfig {
         applicationId "com.example.digitalproductmarketplace"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -60,9 +60,6 @@ dependencies {
     // picasso for image download
     implementation 'com.squareup.picasso:picasso:2.71828'
 
-
-
-
-
-
+    // paypal
+    implementation 'com.paypal.sdk:paypal-android-sdk:2.16.0'
 }

@@ -5,6 +5,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -35,8 +36,17 @@ import com.example.digitalproductmarketplace.boundary.ItemDAO;
 import com.example.digitalproductmarketplace.boundary.UserDAO;
 import com.example.digitalproductmarketplace.entity.Item;
 import com.example.digitalproductmarketplace.entity.User;
+import com.paypal.android.sdk.payments.PayPalConfiguration;
+import com.paypal.android.sdk.payments.PayPalPayment;
+import com.paypal.android.sdk.payments.PayPalService;
+import com.paypal.android.sdk.payments.PaymentActivity;
+import com.paypal.android.sdk.payments.PaymentConfirmation;
+import com.squareup.picasso.Picasso;
+
+import org.json.JSONException;
 
 import java.io.File;
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
 
 public class ItemDescription extends AppCompatActivity {
@@ -54,6 +64,11 @@ public class ItemDescription extends AppCompatActivity {
     Item _currentItem;
     TextView _priceText;
     TextView _categoryText;
+    private static PayPalConfiguration config = new PayPalConfiguration()
+            // Start with mock environment.  When ready, switch to sandbox (ENVIRONMENT_SANDBOX)
+            // or live (ENVIRONMENT_PRODUCTION)
+            .environment(PayPalConfiguration.ENVIRONMENT_SANDBOX)
+            .clientId("AdNM1C0aoiV7nzYMhsZ-TdYZuHAo2CziKwZ-1GDDMuNQqGWMyajWjcXQbTkoxFhYBtrprKykTkDDrGs8");
 
 
     @Override
@@ -70,6 +85,15 @@ public class ItemDescription extends AppCompatActivity {
         _sharedPref = PreferenceManager.getDefaultSharedPreferences(ItemDescription.this);
         _itemDAO = new ItemDAO(ItemDescription.this);
 
+
+
+
+
+        Intent intent = new Intent(this, PayPalService.class);
+
+        intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, config);
+
+        startService(intent);
 
         // start the aws trasfer service
         getApplicationContext().startService(new Intent(getApplicationContext(), TransferService.class));
@@ -90,6 +114,7 @@ public class ItemDescription extends AppCompatActivity {
                 Log.e(AWS_TAG, "Initialization error.", e);
             }
         });
+
 
         //
         if (_sharedPref.contains("EMAIL")) {
@@ -132,7 +157,9 @@ public class ItemDescription extends AppCompatActivity {
             DecimalFormat df = new DecimalFormat("$#.##");
             _priceText.setText("Price:\t\t" + df.format(_currentItem.get_price()));
             _categoryText.setText("Category:\t\t" + _currentItem.get_catagory().toUpperCase());
-
+            Picasso.get().
+                    load("https://robohash.org/" + _currentItem.get_picName() + "?set=set3").
+                    into(_itemImage);
 
         }
 
@@ -152,21 +179,66 @@ public class ItemDescription extends AppCompatActivity {
         _buyNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (ContextCompat.checkSelfPermission(ItemDescription.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                        != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(ItemDescription.this,
-                            new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                            1999);
-                    }
-                else {
-                    downloadFileWithTransferUtility(_currentItem.get_fileUrl());
 
-                }
+                // PAYMENT_INTENT_SALE will cause the payment to complete immediately.
+                // Change PAYMENT_INTENT_SALE to
+                //   - PAYMENT_INTENT_AUTHORIZE to only authorize payment and capture funds later.
+                //   - PAYMENT_INTENT_ORDER to create a payment for authorization and capture
+                //     later via calls from your server.
+
+                PayPalPayment payment = new PayPalPayment(new BigDecimal(String.valueOf(_currentItem.get_price())),
+                        "CAD", _currentItem.get_description(),
+                        PayPalPayment.PAYMENT_INTENT_SALE);
+
+                Intent intent = new Intent(ItemDescription.this, PaymentActivity.class);
+
+                // send the same configuration for restart resiliency
+                intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, config);
+
+                intent.putExtra(PaymentActivity.EXTRA_PAYMENT, payment);
+
+                startActivityForResult(intent, 0);
+
 
             }
         });
 
 
+
+    }
+
+    @Override
+    protected void onActivityResult (int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            PaymentConfirmation confirm = data.getParcelableExtra(PaymentActivity.EXTRA_RESULT_CONFIRMATION);
+            if (confirm != null) {
+                try {
+                    Log.i("paymentExample", confirm.toJSONObject().toString(4));
+
+                    // TODO: send 'confirm' to your server for verification.
+                    // see https://developer.paypal.com/webapps/developer/docs/integration/mobile/verify-mobile-payment/
+                    // for more details.
+
+                    if (ContextCompat.checkSelfPermission(ItemDescription.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                            != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(ItemDescription.this,
+                                new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                                1999);
+                    }
+                    else {
+                        downloadFileWithTransferUtility(_currentItem.get_fileUrl());
+
+                    }
+                } catch (JSONException e) {
+                    Log.e("paymentExample", "an extremely unlikely failure occurred: ", e);
+                }
+            }
+        } else if (resultCode == Activity.RESULT_CANCELED) {
+            Log.i("paymentExample", "The user canceled.");
+        } else if (resultCode == PaymentActivity.RESULT_EXTRAS_INVALID) {
+            Log.i("paymentExample", "An invalid Payment or PayPalConfiguration was submitted. Please see the docs.");
+        }
     }
 
     private void downloadImageWithTransferUtility(final String amazonKey) {
@@ -288,6 +360,13 @@ public class ItemDescription extends AppCompatActivity {
         Log.d("Your Activity", "Bytes Transferred: " + downloadObserver.getBytesTransferred());
         Log.d("Your Activity", "Bytes Total: " + downloadObserver.getBytesTotal());
 
+    }
+
+
+    @Override
+    public void onDestroy() {
+        stopService(new Intent(this, PayPalService.class));
+        super.onDestroy();
     }
 
 
