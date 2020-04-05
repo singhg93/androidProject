@@ -37,6 +37,7 @@ import com.example.digitalproductmarketplace.entity.Item;
 import com.example.digitalproductmarketplace.entity.User;
 
 import java.io.File;
+import java.text.DecimalFormat;
 
 public class ItemDescription extends AppCompatActivity {
 
@@ -51,6 +52,8 @@ public class ItemDescription extends AppCompatActivity {
     UserDAO _userDAO;
     ItemDAO _itemDAO;
     Item _currentItem;
+    TextView _priceText;
+    TextView _categoryText;
 
 
     @Override
@@ -61,9 +64,11 @@ public class ItemDescription extends AppCompatActivity {
         _imageDescription = findViewById(R.id.description_text);
         _goBack = findViewById(R.id.description_go_back);
         _itemImage = findViewById(R.id.description_image);
-        _userDAO = new UserDAO(this);
-        _sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-        _itemDAO = new ItemDAO(this);
+        _priceText = findViewById(R.id.details_price);
+        _categoryText = findViewById(R.id.category_text);
+        _userDAO = new UserDAO(ItemDescription.this);
+        _sharedPref = PreferenceManager.getDefaultSharedPreferences(ItemDescription.this);
+        _itemDAO = new ItemDAO(ItemDescription.this);
 
 
         // start the aws trasfer service
@@ -123,9 +128,10 @@ public class ItemDescription extends AppCompatActivity {
         } else {
             downloadImageWithTransferUtility(_currentItem.get_picName());
             Log.e("Pic Name", _currentItem.get_picName());
-            _imageDescription.setText(_currentItem.get_description()
-                    + "\nCategory: " + _currentItem.get_catagory()
-                    + "\nPrice: " + _currentItem.get_price());
+            _imageDescription.setText(_currentItem.get_description());
+            DecimalFormat df = new DecimalFormat("$#.##");
+            _priceText.setText("Price:\t\t" + df.format(_currentItem.get_price()));
+            _categoryText.setText("Category:\t\t" + _currentItem.get_catagory().toUpperCase());
 
 
         }

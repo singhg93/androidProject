@@ -25,6 +25,7 @@ public class ItemsActivity extends AppCompatActivity implements RecyclerViewCust
     String category;
     ArrayList<Item> items;
     Button goBack;
+    Button goBackToProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +33,7 @@ public class ItemsActivity extends AppCompatActivity implements RecyclerViewCust
         setContentView(R.layout.activity_items);
 
         goBack = findViewById(R.id.go_to_categories);
+        goBackToProfile = findViewById(R.id.go_back_to_profile);
         // get the intent and the bundle
         Intent thisIntent = getIntent();
         Bundle myBundle = thisIntent.getExtras();
@@ -76,6 +78,14 @@ public class ItemsActivity extends AppCompatActivity implements RecyclerViewCust
             public void onClick(View v) {
                 Intent goToCategoriesIntent = new Intent(ItemsActivity.this, Categories.class);
                 startActivity(goToCategoriesIntent);
+            }
+        });
+
+        goBackToProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent goToProfileIntent = new Intent(ItemsActivity.this, ProfileActivity.class);
+                startActivity(goToProfileIntent);
             }
         });
 

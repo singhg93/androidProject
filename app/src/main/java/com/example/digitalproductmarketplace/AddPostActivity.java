@@ -76,6 +76,7 @@ public class AddPostActivity extends AppCompatActivity {
     AdvertisementDAO _adDAO;
     UserDAO _userDAO;
     User _signedInUser;
+    Button _cancelButton;
 
     boolean _imageFileUploaded;
     boolean _contentFileUploaded;
@@ -100,6 +101,7 @@ public class AddPostActivity extends AppCompatActivity {
         _description = findViewById(R.id.description_input);
         _categories = findViewById(R.id.categories_input);
         _price = findViewById(R.id.price_input);
+        _cancelButton = findViewById(R.id.cancel);
         _imageFileUploaded = false;
         _contentFileUploaded = false;
 
@@ -238,6 +240,14 @@ public class AddPostActivity extends AppCompatActivity {
                     uploadWithTransferUtility(_imageFile, _imageAmazonUniqueKey, "images");
 
                 }
+            }
+        });
+
+        _cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent backIntent = new Intent(AddPostActivity.this, ProfileActivity.class);
+                startActivity(backIntent);
             }
         });
 
