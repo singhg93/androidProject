@@ -46,13 +46,14 @@
     <string name="price">Price</string>
     <string name="list_categories">Browse Categories</string>
     <string name="list_items">Browse all Items</string>
-    <string name="buy">Buy Now</string>
+    <string name="buy">Buy</string>
     <string name="itemdesc">Image Description</string>
     <string name="go_back">Go Back</string>
     <string name="list_items_heading">Orange Marketplace</string>
     <string name="go_back_to_categories">Browse All Categories</string>
     <string name="choose_a_file">Choose a file....</string>
-    <string name="buyy">BUY NOW</string>
+    <string name="cancel">Cancel</string>
+    <string name="go_back_to_profile">Go To Profile Page</string>
 </resources>
 
 
