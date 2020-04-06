@@ -1,8 +1,10 @@
 package com.example.digitalproductmarketplace;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -81,10 +83,24 @@ public class ProfileActivity extends AppCompatActivity {
         _logOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences.Editor editor = _sharedPref.edit();
-                editor.clear();
-                editor.commit();
-                signOut();
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(ProfileActivity.this);
+                alertDialog.setTitle("Are you sure to Log Out?");
+                alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        SharedPreferences.Editor editor = _sharedPref.edit();
+                        editor.clear();
+                        editor.commit();
+                        signOut();
+                    }
+                });
+                alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                alertDialog.show();
             }
         });
 
