@@ -53,8 +53,6 @@ public class AddPostActivity extends AppCompatActivity {
     private final String INPUT_TAG = "Input Error";
 
 
-
-
     // attributes
     private final String AWS_TAG = "AWS ERROR";
     private Toast _myToast;
@@ -127,8 +125,6 @@ public class AddPostActivity extends AppCompatActivity {
         AWSMobileClient.getInstance().initialize(getApplicationContext(), new Callback<UserStateDetails>() {
             @Override
             public void onResult(UserStateDetails userStateDetails) {
-
-
                 Log.i(AWS_TAG, "AWSMobileClient initialized. User State is " + userStateDetails.getUserState());
             //    uploadWithTransferUtility("hello");
             }
