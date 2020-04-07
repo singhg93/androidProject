@@ -51,7 +51,7 @@ public class Categories extends AppCompatActivity {
         _ebookCardBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                itemBundle.putString("CATEGORY","ebooks");
+                itemBundle.putString("CATEGORY","ebook");
                 itemIntent.putExtras(itemBundle);
                 startActivity(itemIntent);
             }
@@ -59,7 +59,7 @@ public class Categories extends AppCompatActivity {
         _grapicCardBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                itemBundle.putString("CATEGORY","graphicDesign");
+                itemBundle.putString("CATEGORY","graphic design");
                 itemIntent.putExtras(itemBundle);
                 startActivity(itemIntent);
             }

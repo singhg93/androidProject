@@ -83,6 +83,8 @@ public class ProfileActivity extends AppCompatActivity {
         _logOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // an alert box after log out button got clicked will appear here
+                // for the confirmation for leaving
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(ProfileActivity.this);
                 alertDialog.setTitle("Leave Application?");
                 alertDialog.setMessage("Are you sure you want to Log Out?");
@@ -154,9 +156,9 @@ public class ProfileActivity extends AppCompatActivity {
         });
     }
 
-    //signOut() method clears the connected google account to the application
-    //revokeAccess() method will disconnect the google account
-    //as it clears the information of account
+    // signOut() method clears the connected google account to the application
+    // revokeAccess() method will disconnect the google account
+    // as it clears the information of account
     private void signOut(){
         _myGoogleSignOutClient.signOut()
                 .addOnCompleteListener(this, new OnCompleteListener<Void>() {

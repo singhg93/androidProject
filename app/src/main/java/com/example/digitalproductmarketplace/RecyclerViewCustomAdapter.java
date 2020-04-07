@@ -85,11 +85,8 @@ public class RecyclerViewCustomAdapter extends RecyclerView.Adapter<RecyclerView
             itemDescriptionTxt = itemView.findViewById(R.id.item_description_txt);
             itemImage = itemView.findViewById(R.id.item_Image);
             itemCategory = itemView.findViewById(R.id.item_category);
-
         }
-
     }
-
     public void setOnClick(OnItemClicked onClick) {
         this.onClick = onClick;
     }

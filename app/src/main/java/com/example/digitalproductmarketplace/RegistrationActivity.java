@@ -97,10 +97,9 @@ public class RegistrationActivity extends AppCompatActivity {
 
             // show the toast
             showToast(toastMsg);
-
             return false;
-
             // check to see if the email is valid
+
         } else if ( !Patterns.EMAIL_ADDRESS.matcher(email).matches() ) {
 
 

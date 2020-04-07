@@ -204,8 +204,4 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(profileIntent);
         finish();
     }
-
-    private void signOut(){
-
-    }
 }
