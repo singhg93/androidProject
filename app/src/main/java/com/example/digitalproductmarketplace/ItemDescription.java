@@ -240,6 +240,11 @@ public class ItemDescription extends AppCompatActivity {
                     }
                 } catch (JSONException e) {
                     Log.e("paymentExample", "an extremely unlikely failure occurred: ", e);
+                    if (_myToast != null ) {
+                        _myToast.cancel();
+                    }
+                    _myToast = Toast.makeText(ItemDescription.this, "An error occured while processing the transaciton", Toast.LENGTH_LONG);
+                    _myToast.show();
                 }
             }
         } else if (resultCode == Activity.RESULT_CANCELED) {
@@ -300,6 +305,7 @@ public class ItemDescription extends AppCompatActivity {
                 // Handle errors
                 Log.e("AWS", ex.getMessage());
 
+
             }
 
         });
@@ -358,6 +364,12 @@ public class ItemDescription extends AppCompatActivity {
                 // Handle errors
 
                 Log.e("AWS", ex.getMessage());
+                if (_myToast != null ) {
+                    _myToast.cancel();
+                }
+                _myToast = Toast.makeText(ItemDescription.this, "An error occurred. Please enter your card details again you will not be charged.", Toast.LENGTH_LONG);
+                _myToast.show();
+
             }
 
         });

@@ -1,19 +1,15 @@
 package com.example.digitalproductmarketplace;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
-import com.example.digitalproductmarketplace.boundary.AdvertisementDAO;
+
 import com.example.digitalproductmarketplace.boundary.ItemDAO;
-import com.example.digitalproductmarketplace.entity.AdvertisementPost;
 import com.example.digitalproductmarketplace.entity.Item;
 
 import java.util.ArrayList;

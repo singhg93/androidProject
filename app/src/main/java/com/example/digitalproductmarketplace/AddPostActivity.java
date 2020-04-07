@@ -16,10 +16,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.digitalproductmarketplace.boundary.AdvertisementDAO;
 import com.example.digitalproductmarketplace.boundary.ItemDAO;
 import com.example.digitalproductmarketplace.boundary.UserDAO;
-import com.example.digitalproductmarketplace.entity.AdvertisementPost;
 import com.example.digitalproductmarketplace.entity.Item;
 import com.example.digitalproductmarketplace.entity.User;
 import com.github.angads25.filepicker.controller.DialogSelectionListener;
@@ -37,14 +35,7 @@ import com.amazonaws.mobileconnectors.s3.transferutility.TransferState;
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferUtility;
 import com.amazonaws.services.s3.AmazonS3Client;
 
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-
 
 
 public class AddPostActivity extends AppCompatActivity {
@@ -71,7 +62,6 @@ public class AddPostActivity extends AppCompatActivity {
     String _contentAmazonUniqueKey;
     String _imageAmazonUniqueKey;
     ItemDAO _itemDAO;
-    AdvertisementDAO _adDAO;
     UserDAO _userDAO;
     User _signedInUser;
     Button _cancelButton;
@@ -87,7 +77,6 @@ public class AddPostActivity extends AppCompatActivity {
 
         // initialize the dao's
         _itemDAO = new ItemDAO(getApplicationContext());
-        _adDAO = new AdvertisementDAO(getApplicationContext());
         _userDAO = new UserDAO(getApplicationContext());
 
         // initialize the views and buttons

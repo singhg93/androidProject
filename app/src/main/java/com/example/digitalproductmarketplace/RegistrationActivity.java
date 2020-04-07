@@ -40,7 +40,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
         // get all the fields from their ids
         _backtologin = findViewById(R.id.no_account);
-        final TextView backtologin=findViewById(R.id.signUpTxt);
+//        final TextView backtologin=findViewById(R.id.signUpTxt);
         _firstName = findViewById(R.id.firstNameTxt);
         _lastName = findViewById(R.id.lastNameTxt);
         _emailTxt = findViewById(R.id.login_email);
