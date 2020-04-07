@@ -9,17 +9,23 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.digitalproductmarketplace.boundary.FileReader;
+import com.example.digitalproductmarketplace.boundary.ItemDAO;
 import com.example.digitalproductmarketplace.boundary.UserDAO;
+import com.example.digitalproductmarketplace.entity.Item;
 import com.example.digitalproductmarketplace.entity.User;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+
+import java.util.ArrayList;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -35,6 +41,9 @@ public class ProfileActivity extends AppCompatActivity {
     Button _addPostButton;
     Button _browseCategories;
     Button _browseAllItems;
+    Button _populateDatabase;
+    ItemDAO _itemDAO;
+    FileReader _fileReader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +58,9 @@ public class ProfileActivity extends AppCompatActivity {
         _addPostButton = findViewById(R.id.add_post_button);
         _browseCategories = findViewById(R.id.list_categories);
         _browseAllItems = findViewById(R.id.list_all_items);
+        _populateDatabase = findViewById(R.id.populate_database);
+        _itemDAO = new ItemDAO(ProfileActivity.this);
+        _fileReader = new FileReader(getResources().openRawResource(R.raw.items));
 
 
         _gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -152,6 +164,28 @@ public class ProfileActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent allItemsIntent = new Intent(ProfileActivity.this, ItemsActivity.class);
                 startActivity(allItemsIntent);
+            }
+        });
+
+        _populateDatabase.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                _fileReader.readFile();
+                ArrayList<String> lines = _fileReader.getLines();
+                for( int i = 0; i < lines.size(); i++) {
+                    String[] columns = lines.get(i).split(",");
+                    Item newItem = new Item();
+                    newItem.set_description(columns[1]);
+                    newItem.set_price(Double.parseDouble(columns[2]));
+                    newItem.set_catagory(columns[3]);
+                    newItem.set_userId(_signedInUser.get_id());
+                    newItem.set_picName(columns[5]);
+                    newItem.set_datePostedEpoch(Long.parseLong(columns[6]));
+                    newItem.set_lastUpdatedEpoch(Long.parseLong(columns[7]));
+                    newItem.set_fileUrl(columns[8]);
+                    _itemDAO.insertItem(newItem);
+                }
             }
         });
     }

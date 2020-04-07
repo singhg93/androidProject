@@ -122,6 +122,71 @@ public class UserDAO implements UserDAOInterface {
 
     }
 
+    public User getUser(long userId) {
+
+        try {
+
+            // get the database
+            _db = _dbHelper.getReadableDatabase();
+
+            // list all the columns that should be returned from the database
+            String[] projection = {
+                    DBHelper.ID,
+                    DBHelper.FIRST_NAME_COLUMN,
+                    DBHelper.LAST_NAME_COLUMN,
+                    DBHelper.EMAIL_COLUMN,
+                    DBHelper.PASSWORD_COLUMN
+            };
+
+            // filter the results to return users with the given email
+            String selection = DBHelper.USER_ID + " = ?";
+            String[] selectionArgs = {String.valueOf(userId)};
+
+            // get the results
+            Cursor cursor = _db.query(
+                    DBHelper.USERS_TABLE_NAME,  // The table to query
+                    projection, // the array of columns to return
+                    selection,  // the columns for the where clause
+                    selectionArgs, // arguments for where clause
+                    null,   // don't group the results
+                    null,   // don't filter by row groups
+                    null    // don't sort since only one result expected
+            );
+
+            // instantiate a new user
+            User requestedUser = new User();
+
+
+            // if the cursor has a next row, move to the first one and get all the required infor
+            if (cursor.moveToNext()) {
+                cursor.moveToFirst();
+                long newUserId = cursor.getLong(cursor.getColumnIndexOrThrow(DBHelper.ID));
+                String firstName = cursor.getString(cursor.getColumnIndexOrThrow(DBHelper.FIRST_NAME_COLUMN));
+                String lastName = cursor.getString(cursor.getColumnIndexOrThrow(DBHelper.LAST_NAME_COLUMN));
+                String email = cursor.getString(cursor.getColumnIndexOrThrow(DBHelper.EMAIL_COLUMN));
+                String password = cursor.getString(cursor.getColumnIndexOrThrow(DBHelper.PASSWORD_COLUMN));
+
+                // create a user object from the database values
+                requestedUser.set_id(newUserId);
+                requestedUser.set_firstName(firstName);
+                requestedUser.set_lastName(lastName);
+                requestedUser.set_email(email);
+                requestedUser.set_hashedPassword(password);
+
+                // if there are no rows in the curson, return null
+            } else {
+                requestedUser = null;
+            }
+
+            // return the user
+            return requestedUser;
+        } catch (Exception ex) {
+            Log.e(LOG_TAG, ex.getMessage());
+            return null;
+        }
+
+    }
+
     @Override
     public ArrayList<User> getAllUsers() {
 

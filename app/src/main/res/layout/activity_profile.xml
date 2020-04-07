@@ -117,7 +117,7 @@
             android:layout_marginRight="32dp"
             android:layout_marginBottom="32dp"
             android:foreground="@drawable/pp"
-            android:src="@mipmap/ic_launcher"
+            android:src="@mipmap/ic_orange"
             app:layout_constraintBottom_toBottomOf="@+id/frameLayout"
             app:layout_constraintEnd_toEndOf="parent" />
 
@@ -135,7 +135,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/list_all_items" />
+            app:layout_constraintTop_toBottomOf="@+id/populate_database" />
 
         <Button
             android:id="@+id/add_post_button"
@@ -200,6 +200,28 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/list_categories" />
+
+        <Button
+            android:id="@+id/populate_database"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginRight="32dp"
+            android:background="@drawable/textview_border"
+            android:drawableRight="@drawable/ic_playlist_add_check_black_24dp"
+            android:gravity="left"
+            android:text="@string/populate_database"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textStyle="bold"
+            android:typeface="monospace"
+            app:fontFamily="serif-monospace"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/list_all_items" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
