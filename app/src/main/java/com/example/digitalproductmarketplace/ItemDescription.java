@@ -64,6 +64,8 @@ public class ItemDescription extends AppCompatActivity {
     Item _currentItem;
     TextView _priceText;
     TextView _categoryText;
+    Toast _myToast;
+
     private static PayPalConfiguration config = new PayPalConfiguration()
             // Start with mock environment.  When ready, switch to sandbox (ENVIRONMENT_SANDBOX)
             // or live (ENVIRONMENT_PRODUCTION)
@@ -227,6 +229,12 @@ public class ItemDescription extends AppCompatActivity {
                                 1999);
                     }
                     else {
+
+                        if (_myToast != null) {
+                            _myToast.cancel();
+                        }
+                        _myToast = Toast.makeText(ItemDescription.this, "Download has started", Toast.LENGTH_LONG);
+                        _myToast.show();
                         downloadFileWithTransferUtility(_currentItem.get_fileUrl());
 
                     }
@@ -328,7 +336,11 @@ public class ItemDescription extends AppCompatActivity {
                 if (TransferState.COMPLETED == state) {
                     // Handle a completed upload.
 //                    Toast.makeText(ItemDescription.this, "File Downloaded", Toast.LENGTH_LONG).show();
-                    Toast.makeText(ItemDescription.this, "File is downloaded to the Downloads folder", Toast.LENGTH_LONG).show();
+                    if (_myToast != null) {
+                        _myToast.cancel();
+                    }
+                    _myToast = Toast.makeText(ItemDescription.this, "File is downloaded to the Downloads folder", Toast.LENGTH_LONG);
+                    _myToast.show();
 
                 }
             }

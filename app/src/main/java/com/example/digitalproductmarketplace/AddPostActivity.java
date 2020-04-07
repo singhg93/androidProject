@@ -157,21 +157,12 @@ public class AddPostActivity extends AppCompatActivity {
         _imageDialog = new FilePickerDialog(AddPostActivity.this,imageDialogProperties);
         _imageDialog.setTitle("Select a Image File");
 
-        // initialize the properties for the file choosing dialogbox
-        DialogProperties fileDialogProperties = new DialogProperties();
-
-        // set the dialog properties attributes
-        fileDialogProperties.selection_mode = DialogConfigs.SINGLE_MODE;
-        fileDialogProperties.selection_type = DialogConfigs.FILE_SELECT;
-        fileDialogProperties.root = new File(DialogConfigs.DEFAULT_DIR);
-        fileDialogProperties.error_dir = new File(DialogConfigs.DEFAULT_DIR);
-        fileDialogProperties.offset = new File(DialogConfigs.DEFAULT_DIR);
-        fileDialogProperties.extensions = null;
 
 
-        // initialize a new dialog box for choosing the content file
-        _fileDialog = new FilePickerDialog(AddPostActivity.this,fileDialogProperties);
-        _fileDialog.setTitle("Select a Content File");
+
+
+
+
 
         _imageDialog.setDialogSelectionListener(new DialogSelectionListener() {
             @Override
@@ -190,27 +181,13 @@ public class AddPostActivity extends AppCompatActivity {
         });
 
 
-        // when the file is selected
-        _fileDialog.setDialogSelectionListener(new DialogSelectionListener() {
-            @Override
-            public void onSelectedFilePaths(String[] files) {
-                //files is the array of the paths of files selected by the Application User.
-                // go through all the files, since only single file selection is allowed,
-                // only one path will be present in the array
-                for (String filePath : files) {
-                    Log.e("file Paths", filePath);
-                    // store the file path in _contentFile variable
-                    _contentFile = filePath;
-                    _contentFilePath.setText(filePath);
 
-                }
-            }
-        });
 
         // when the user wants to choose a display image for the post
         _chooseFileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 _imageDialog.show();
             }
         });
@@ -219,7 +196,64 @@ public class AddPostActivity extends AppCompatActivity {
         _chooseContentFileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // initialize the properties for the file choosing dialogbox
+                DialogProperties fileDialogProperties = new DialogProperties();
+
+                // set the dialog properties attributes
+                fileDialogProperties.selection_mode = DialogConfigs.SINGLE_MODE;
+                fileDialogProperties.selection_type = DialogConfigs.FILE_SELECT;
+                fileDialogProperties.root = new File(DialogConfigs.DEFAULT_DIR);
+                fileDialogProperties.error_dir = new File(DialogConfigs.DEFAULT_DIR);
+                fileDialogProperties.offset = new File(DialogConfigs.DEFAULT_DIR);
+                fileDialogProperties.extensions = null;
+
+                switch(_categories.getSelectedItem().toString()) {
+                    case "Audio":
+                        String[] audioFileExtensions =  {"mp3"};
+                        fileDialogProperties.extensions = audioFileExtensions;
+                        break;
+
+                    case "Video":
+                        String[] videoFileExtensions = {"mp4", "mkv"};
+                        fileDialogProperties.extensions = videoFileExtensions;
+                        break;
+
+                    case "Ebook":
+                        String[] ebookFileExtension = {"epub", "mobi"};
+                        fileDialogProperties.extensions = ebookFileExtension;
+                        break;
+
+                    case "Graphic Design":
+                        String[] designFileExtension = {"svg", "png", "jpg"};
+                        fileDialogProperties.extensions = designFileExtension;
+                        break;
+                }
+
+                // initialize a new dialog box for choosing the content file
+                _fileDialog = new FilePickerDialog(AddPostActivity.this,fileDialogProperties);
+                _fileDialog.setTitle("Select a Content File");
                 _fileDialog.show();
+
+                // when the file is selected
+                _fileDialog.setDialogSelectionListener(new DialogSelectionListener() {
+                    @Override
+                    public void onSelectedFilePaths(String[] files) {
+
+
+                        //files is the array of the paths of files selected by the Application User.
+                        // go through all the files, since only single file selection is allowed,
+                        // only one path will be present in the array
+
+
+                        for (String filePath : files) {
+                            Log.e("file Paths", filePath);
+                            // store the file path in _contentFile variable
+                            _contentFile = filePath;
+                            _contentFilePath.setText(filePath);
+
+                        }
+                    }
+                });
             }
         });
 
