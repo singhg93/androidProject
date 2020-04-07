@@ -28,10 +28,13 @@ for an account. After they login, they have the following options:
 
 # Installation
 
-- Unzip the zip file for the app
-- Open the project in the android studio
-- Clean build the app
-- Run the app
+- Unzip the zip file for the app.
+- Open the project in the android studio.
+- Clean build the app.
+- Run the app.
+- Create an account.
+- Login to view the profile page.
+- Click the `populate database` button to insert values in the database.
 
 # The external libraries used
 
