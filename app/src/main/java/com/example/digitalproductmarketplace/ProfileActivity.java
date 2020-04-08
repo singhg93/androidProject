@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.digitalproductmarketplace.boundary.FileReader;
 import com.example.digitalproductmarketplace.boundary.ItemDAO;
@@ -44,6 +45,7 @@ public class ProfileActivity extends AppCompatActivity {
     Button _populateDatabase;
     ItemDAO _itemDAO;
     FileReader _fileReader;
+    Toast _myToast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -186,6 +188,12 @@ public class ProfileActivity extends AppCompatActivity {
                     newItem.set_fileUrl(columns[8]);
                     _itemDAO.insertItem(newItem);
                 }
+
+                if (_myToast != null) {
+                    _myToast.cancel();
+                }
+                _myToast = Toast.makeText(ProfileActivity.this, "Database updated", Toast.LENGTH_LONG);
+                _myToast.show();
             }
         });
     }
