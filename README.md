@@ -19,16 +19,11 @@ for an account. After they login, they have the following options:
 - The products can fall under one of the four categories
     i.e. Video, Audio, Ebook, Graphic Design
 
-# Group Number \# 6
-
-# Group Members
-- Gursewak Singh **300304971**
-- Sajan Kumar **300306508**
-- Raman Kumar **300310486**
 
 # Installation
 
-- Unzip the zip file for the app.
+- Download the zip or clone the repository.
+- Unzip the zip file for the app
 - Open the project in the android studio.
 - Clean build the app.
 - Run the app.
